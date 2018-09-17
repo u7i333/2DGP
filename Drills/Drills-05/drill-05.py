@@ -23,7 +23,22 @@ def move_to_203_535():
         get_events()
 
 def move_to_132_243():
-    pass
+    fromx, fromy = 203, 535
+    tox, toy = 132, 243
+    incre_or_decre_x = (tox - fromx) / 50
+    incre_or_decre_y = (toy - fromy) / 50
+    frame = 0
+
+    while (fromx > tox and fromy > toy):
+        clear_canvas()
+        grass.draw(400, 30)
+        character.clip_draw(frame * 100, 0, 100, 100, fromx, fromy)
+        update_canvas()
+        frame = (frame + 1) % 8
+        fromx += incre_or_decre_x
+        fromy += incre_or_decre_y
+        delay(0.05)
+        get_events()
 
 def move_to_535_470():
     pass
@@ -53,7 +68,7 @@ def movo_to_start():
     pass
 
 def move_character():
-    move_to_203_535()
+    #move_to_203_535()
     move_to_132_243()
     move_to_535_470()
     movo_to_477_203()
