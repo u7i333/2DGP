@@ -207,16 +207,16 @@ def movo_to_start():
         get_events()
 
 def move_character():
-    #move_to_203_535()
-    #move_to_132_243()
-    #move_to_535_470()
-    #movo_to_477_203()
-    #movo_to_715_136()
-    #movo_to_316_225()
-    #movo_to_510_92()
-    #movo_to_692_518()
-    #movo_to_682_332()
-    #movo_to_712_349()
+    move_to_203_535()
+    move_to_132_243()
+    move_to_535_470()
+    movo_to_477_203()
+    movo_to_715_136()
+    movo_to_316_225()
+    movo_to_510_92()
+    movo_to_692_518()
+    movo_to_682_332()
+    movo_to_712_349()
     movo_to_start()
 
 while(True):
