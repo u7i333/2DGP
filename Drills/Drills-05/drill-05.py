@@ -1,31 +1,54 @@
 from pico2d import *
 
-
-
 open_canvas()
 grass = load_image('grass.png')
 character = load_image('animation_sheet.png')
 
 def move_to_203_535():
-    pass
+    fromx, fromy = 800//2, 90
+    tox, toy = 203, 535
+    incre_or_decre_x = (tox - fromx)/50
+    incre_or_decre_y = (toy - fromy)/50
+    frame = 0
+
+    while (fromx > tox and fromy < toy):
+        clear_canvas()
+        grass.draw(400,30)
+        character.clip_draw(frame*100, 0, 100, 100, fromx, fromy)
+        update_canvas()
+        frame = (frame+1)%8
+        fromx += incre_or_decre_x
+        fromy += incre_or_decre_y
+        delay(0.05)
+        get_events()
+
 def move_to_132_243():
     pass
+
 def move_to_535_470():
     pass
+
 def movo_to_477_203():
     pass
+
 def movo_to_715_136():
     pass
+
 def movo_to_316_225():
     pass
+
 def movo_to_510_92():
     pass
+
 def movo_to_692_518():
     pass
+
 def movo_to_682_332():
     pass
+
 def movo_to_712_349():
     pass
+
 def movo_to_start():
     pass
 
