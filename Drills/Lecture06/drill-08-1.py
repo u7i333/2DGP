@@ -61,7 +61,6 @@ def draw_curve_4_points(p1, p2, p3, p4):
         draw_point((x, y))
     draw_point(p2)
 
-pass
 
 prepare_turtle_canvas()
 points = [(400,350),(300,-300),(-200,-200),(-300,200)]
