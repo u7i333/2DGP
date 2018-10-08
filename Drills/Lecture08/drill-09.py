@@ -27,11 +27,10 @@ class SmallBall:
         self.image = load_image('ball21x21.png')
 
     def update(self):
+        count1= 0
         if (self.y > 62):
-            count = 5
-        if (self.y < 62):
-            count = 0
-        self.y -= count
+            count1 = 5
+        self.y -= count1
 
     def draw(self):
         self.image.draw(self.x, self.y)
@@ -42,11 +41,10 @@ class LargeBall:
         self.image = load_image('ball41x41.png')
 
     def update(self):
-        if (self.y > 82):
-            count = 5
-        if (self.y < 82):
-            count = 0
-        self.y -= count
+        count2 = 0
+        if (self.y > 72):
+            count2 = 5
+        self.y -= count2
 
     def draw(self):
         self.image.draw(self.x, self.y)
