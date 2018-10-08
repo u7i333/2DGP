@@ -51,7 +51,6 @@ class LargeBall:
         if (self.y < 72):
             self.count2 = 0
         self.y -= self.count2
-
     def draw(self):
         self.image.draw(self.x, self.y)
 

@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9f2c216e-5070-4f7f-a384-6ddc67c0433c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../Lecture06/drill-08-2.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Lecture06/drill-08-2.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/drill-09.py" beforeDir="false" afterPath="$PROJECT_DIR$/drill-09.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -79,8 +78,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/drill-09.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="148">
-              <caret line="53" lean-forward="true" selection-start-line="53" selection-end-line="53" />
+            <state relative-caret-position="129">
+              <caret line="52" column="29" selection-start-line="52" selection-start-column="29" selection-end-line="52" selection-end-column="29" />
               <folding>
                 <element signature="e#0#20#0" expanded="true" />
               </folding>
@@ -247,7 +246,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-6" y="40" width="1386" height="788" extended-state="1" />
+    <frame x="-6" y="40" width="1386" height="788" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.14391692" />
@@ -303,8 +302,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/drill-09.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="148">
-          <caret line="53" lean-forward="true" selection-start-line="53" selection-end-line="53" />
+        <state relative-caret-position="129">
+          <caret line="52" column="29" selection-start-line="52" selection-start-column="29" selection-end-line="52" selection-end-column="29" />
           <folding>
             <element signature="e#0#20#0" expanded="true" />
           </folding>
