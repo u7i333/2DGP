@@ -1,6 +1,9 @@
 from pico2d import *
 import random
  # Game object class here
+
+
+
 class Grass:
     def __init__(self):
         self.image = load_image('grass.png')
@@ -67,9 +70,9 @@ grass = Grass()
 running = True
 
 team = [Boy() for i in range(11)]
-
-manysmallball = [SmallBall() for i in range(10)]
-manylargeball = [LargeBall() for i in range(10)]
+ballcount = random.randint(1,19)
+manysmallball = [SmallBall() for i in range(ballcount)]
+manylargeball = [LargeBall() for i in range(20-ballcount)]
 
 # game main loop code
 while running:
