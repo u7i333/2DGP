@@ -10,6 +10,10 @@ character = load_image('animation_sheet.png')
 
 x,y = KPU_WIDTH//2, KPU_HEIGHT//2
 
+frame = 0
+points = [(random.randint(-500,500),random.randint(-350,350)) for i in range(size)]
+n = 1
+
 def Move_Rand():
     pass
 
