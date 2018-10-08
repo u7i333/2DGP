@@ -21,7 +21,7 @@ class Boy:
     def draw(self):
         self.image.clip_draw(self.frame*100,0,100,100,self.x, self.y)
 
-class Ball:
+class SmallBall:
     def __init__(self):
         self.x, self.y = random.randint(0,800), random.randint(300,600)
         self.image = load_image('ball21x21.png')
@@ -35,6 +35,22 @@ class Ball:
 
     def draw(self):
         self.image.draw(self.x, self.y)
+
+class LargeBall:
+    def __init__(self):
+        self.x, self.y = random.randint(0,800), random.randint(300,600)
+        self.image = load_image('ball41x41.png')
+
+    def update(self):
+        if (self.y > 82):
+            count = 5
+        if (self.y < 82):
+            count = 0
+        self.y -= count
+
+    def draw(self):
+        self.image.draw(self.x, self.y)
+
 
 def handle_events():
     global running
@@ -50,23 +66,31 @@ open_canvas()
 
 boy = Boy()
 grass = Grass()
-ball = Ball()
 running = True
 
 team = [Boy() for i in range(11)]
+
+manysmallball = [SmallBall() for i in range(10)]
+manylargeball = [LargeBall() for i in range(10)]
 
 # game main loop code
 while running:
     handle_events()
     for boy in team:
         boy.update()
-    ball.update()
+    for ball in manysmallball:
+        ball.update()
+    for ball in manylargeball:
+        ball.update()
     clear_canvas()
     grass.draw()
-    ball.draw()
+
     for boy in team:
         boy.draw()
-
+    for ball in manysmallball:
+        ball.draw()
+    for ball in manylargeball:
+        ball.draw()
     update_canvas()
 
     delay(0.05)
