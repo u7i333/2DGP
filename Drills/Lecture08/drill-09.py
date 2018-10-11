@@ -28,12 +28,14 @@ class SmallBall:
     def __init__(self):
         self.x, self.y = random.randint(0,800), random.randint(300,600)
         self.image = load_image('ball21x21.png')
+        self.count1 = random.randint(4,10)
 
     def update(self):
-        count1= 0
-        if (self.y > 62):
-            count1 = 5
-        self.y -= count1
+
+        if (self.y < 62):
+            self.count1 = 0
+
+        self.y -= self.count1
 
     def draw(self):
         self.image.draw(self.x, self.y)
@@ -42,13 +44,13 @@ class LargeBall:
     def __init__(self):
         self.x, self.y = random.randint(0,800), random.randint(300,600)
         self.image = load_image('ball41x41.png')
+        self.count2 = random.randint(4, 10)
 
     def update(self):
         count2 = 0
-        if (self.y > 72):
-            count2 = 5
-        self.y -= count2
-
+        if (self.y < 72):
+            self.count2 = 0
+        self.y -= self.count2
     def draw(self):
         self.image.draw(self.x, self.y)
 
