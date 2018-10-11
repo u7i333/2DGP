@@ -16,10 +16,13 @@ def exit():
     del(image)
 
 def handle_events():
+    global blink_time
     events = get_events()
     for event in events:
         if event.type == SDL_KEYDOWN and event.key == SDLK_p:
+            blink_time = False
             game_framework.pop_state()
+
 
 
 def draw():
