@@ -6,19 +6,22 @@ name = "PauseState"
 
 
 def enter():
-    pass
+    global image
+    image = load_image('pause.png')
 
 
 def exit():
-    pass
-
+    global image
+    del(image)
 
 def handle_events():
     pass
 
 
 def draw():
-    pass
+    clear_canvas()
+    image.draw(400,300)
+    update_canvas()
 
 
 def update():
