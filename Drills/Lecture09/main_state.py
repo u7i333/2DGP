@@ -76,6 +76,7 @@ def handle_events():
             game_framework.change_state(title_state)
         elif event.type == SDL_KEYDOWN and event.key == SDLK_p:
             # game_framework.push_state(pause_state)
+            game_framework.push_state(senior_pause_state)
             pass
 
 

@@ -3,7 +3,7 @@ from pico2d import *
 import main_state
 
 name = "PauseState"
-
+image = None
 
 def enter():
     global image
