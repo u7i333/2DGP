@@ -32,6 +32,7 @@ class Boy:
         self.frame = 0
         self.image = load_image('run_animation.png')
         self.dir = 1
+        self.facelook = 1
 
     def update(self):
         self.frame = (self.frame + 1) % 8
