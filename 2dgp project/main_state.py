@@ -16,14 +16,20 @@ name = "MainState"
 map = None
 
 class Map:
+    y = 0
+    frame = 1
+
     def __init__(self):
-        self.image = load_image('shooting_ground.png')
+        self.image = load_image('shooting_ground.bmp')
 
     def draw(self):
-        self.image.draw(300, 400)
+        self.image.draw(400, +4850 - 600 - self.y)
 
+    def update(self):
+        self.y += self.frame
 
-
+        if(self.y > 8000):
+            self.y = 0
 
 def enter():
     global map
@@ -58,7 +64,7 @@ def handle_events():
 
 
 def update():
-    pass
+    map.update()
 
 
 def draw():
