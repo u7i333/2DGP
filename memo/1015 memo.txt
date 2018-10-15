@@ -1,0 +1,12 @@
+state 상태 - ex) 자고있다, 깨어나있다
+
+자고있는데 깨어난 것 -> state Transition
+
+교수님이 자고있는 애의 책상을 치는 것 -> event
+
+자고있는데 코를 고골있는것 -> do acitivty
+
+자고있다가 일어날때 소리를 낸다 -> exit action
+
+깨어날때 고개를 드는 행동 -> entry action
+
