@@ -14,10 +14,11 @@ name = "MainState"
 
 
 map = None
+heroine = None
 
 class Map:
     y = 0
-    frame = 1
+    frame = 0.25
 
     def __init__(self):
         self.image = load_image('shooting_ground.bmp')
@@ -30,6 +31,9 @@ class Map:
 
         if(self.y > 8000):
             self.y = 0
+
+class heroine:
+    pass
 
 def enter():
     global map
