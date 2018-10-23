@@ -119,4 +119,5 @@ class Heroine:
                 self.velocityY -= 1
             elif key_event == DOWN_UP:
                 self.velocityY += 1
+
             self.add_event(key_event)
