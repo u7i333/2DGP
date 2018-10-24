@@ -31,10 +31,13 @@ class Heroine:
         self.image = load_image('reimu_sheet.png')
         self.cur_state = IDLE
         self.dir = 1
+        self.RIGHT = False
+        self.LEFT = False
+        self.UP = False
+        self.DOWN = False
+        self.enter_state[IDLE](self)
         self.velocityX= 0
         self.velocityY = 0
-        self.enter_state[IDLE](self)
-
 
 
     # IDLE state functions
@@ -62,6 +65,19 @@ class Heroine:
         pass
 
     def do_RUN(self):
+        if self.RIGHT == True:
+            #self.x += 1
+            self.velocityX += 0.1
+        if self.LEFT == True:
+            #self.x -= 1
+            self.velocityX -= 0.1
+        if self.UP == True:
+            #self.y += 1
+            self.velocityY += 0.1
+        if self.DOWN == True:
+            #self.y -= 1
+            self.velocityY -= 0.1
+
         self.frame = (self.frame + 1) % 8
         self.x += self.velocityX
         self.x = clamp(25, self.x, 800-25)
@@ -69,11 +85,10 @@ class Heroine:
         self.y = clamp(25, self.y, 800 - 25)
 
     def draw_RUN(self):
-        if self.velocityX == 1:
+        if self.RIGHT == True:
             self.image.clip_draw(self.frame * 100, 0, 100, 100, self.x, self.y)
-        else:
+        else: #self.LEFT == True:
             self.image.clip_draw(self.frame * 100, 100, 100, 100, self.x, self.y)
-
 
     def add_event(self, event):
         self.event_que.insert(0, event)
@@ -104,20 +119,21 @@ class Heroine:
         if (event.type, event.key) in key_event_table:
             key_event = key_event_table[(event.type, event.key)]
             if key_event == RIGHT_DOWN:
-                self.velocityX += 1
+                self.RIGHT = True
             elif key_event == LEFT_DOWN:
-                self.velocityX -= 1
-            elif key_event == RIGHT_UP:
-                self.velocityX -= 1
-            elif key_event == LEFT_UP:
-                self.velocityX += 1
-            elif key_event == UP_DOWN:
-                self.velocityY += 1
+                self.LEFT = True
+            if key_event == UP_DOWN:
+                self.UP = True
             elif key_event == DOWN_DOWN:
-                self.velocityY -= 1
-            elif key_event == UP_UP:
-                self.velocityY -= 1
+                self.DOWN = True
+
+            if key_event == RIGHT_UP:
+                self.RIGHT = False
+            elif key_event == LEFT_UP:
+                self.LEFT = False
+            if key_event == UP_UP:
+                self.UP = False
             elif key_event == DOWN_UP:
-                self.velocityY += 1
+                self.DOWN = False
 
             self.add_event(key_event)
