@@ -4,18 +4,18 @@ from ball import Ball
 import game_world
 
 # Boy Event
-RIGHT_DOWN, LEFT_DOWN, RIGHT_UP, LEFT_UP = range(4)
+RIGHT_DOWN, LEFT_DOWN, RIGHT_UP, LEFT_UP, SLEEP_TIMER, SPACE = range(6)
 
 key_event_table = {
     (SDL_KEYDOWN, SDLK_RIGHT): RIGHT_DOWN,
     (SDL_KEYDOWN, SDLK_LEFT): LEFT_DOWN,
     (SDL_KEYUP, SDLK_RIGHT): RIGHT_UP,
-    (SDL_KEYUP, SDLK_LEFT): LEFT_UP
+    (SDL_KEYUP, SDLK_LEFT): LEFT_UP,
+    (SDL_KEYDOWN, SDLK_SPACE): SPACE
 }
 
 
 # Boy States
-
 class IdleState:
 
     @staticmethod
@@ -32,13 +32,16 @@ class IdleState:
 
     @staticmethod
     def exit(boy, event):
-        # fill here
+        if event == SPACE:
+            boy.fire_ball()
         pass
 
     @staticmethod
     def do(boy):
         boy.frame = (boy.frame + 1) % 8
-        # fill here
+        boy.timer -= 1
+        if(boy.timer == 0):
+            boy.add_event(SLEEP_TIMER)
 
     @staticmethod
     def draw(boy):
@@ -64,7 +67,8 @@ class RunState:
 
     @staticmethod
     def exit(boy, event):
-        # fill here
+        if event == SPACE:
+            boy.fire_ball()
         pass
 
     @staticmethod
@@ -83,16 +87,33 @@ class RunState:
 
 
 class SleepState:
-    # fill here
-    pass
 
+    @staticmethod
+    def enter(boy, event):
+        boy.frame = 0
 
+    @staticmethod
+    def exit(boy, event):
+        pass
+
+    @staticmethod
+    def do(boy):
+        boy.frame = (boy.frame + 1)%8
+
+    @staticmethod
+    def draw(boy):
+        if boy.dir == 1:
+            boy.image.clip_composite_draw(boy.frame * 100, 300, 100, 100,3.141592 / 2, '', boy.x - 25, boy.y - 25, 100, 100)
+
+        else:
+            boy.image.clip_composite_draw(boy.frame * 100, 200, 100, 100, -3.141592 / 2, '', boy.x + 25, boy.y - 25, 100, 100)
 
 
 
 next_state_table = {
-    IdleState: {RIGHT_UP: RunState, LEFT_UP: RunState, RIGHT_DOWN: RunState, LEFT_DOWN: RunState},
-    RunState: {RIGHT_UP: IdleState, LEFT_UP: IdleState, LEFT_DOWN: IdleState, RIGHT_DOWN: IdleState}
+    IdleState: {RIGHT_UP: RunState, LEFT_UP: RunState, RIGHT_DOWN: RunState, LEFT_DOWN: RunState,SLEEP_TIMER: SleepState, SPACE: IdleState},
+    RunState: {RIGHT_UP: IdleState, LEFT_UP: IdleState, LEFT_DOWN: IdleState, RIGHT_DOWN: IdleState, SPACE: RunState},
+    SleepState: {LEFT_DOWN: RunState, RIGHT_DOWN: RunState, LEFT_UP: RunState, RIGHT_DOWN: RunState, SPACE: IdleState}
 }
 
 class Boy:
@@ -106,13 +127,6 @@ class Boy:
         self.event_que = []
         self.cur_state = IdleState
         self.cur_state.enter(self, None)
-
-
-    def fire_ball(self):
-        # fill here
-        pass
-
-
 
     def add_event(self, event):
         self.event_que.insert(0, event)
@@ -134,3 +148,6 @@ class Boy:
             key_event = key_event_table[(event.type, event.key)]
             self.add_event(key_event)
 
+    def fire_ball(self):
+        ball = Ball(self.x, self.y, self.dir*3)
+        game_world.add_object(ball, 1);

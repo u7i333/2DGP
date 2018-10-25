@@ -17,3 +17,6 @@ class Ball:
 
         if self.x < 25 or self.x > 1600 - 25:
             game_world.remove_object(self)
+
+            if self.x < 25 or self.x > 1600 - 200:
+                game_world.remove_object(self)
