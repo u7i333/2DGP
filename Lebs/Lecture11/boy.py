@@ -125,7 +125,7 @@ class DashState:
             boy.velocity -= 1
         elif event == LEFT_UP:
             boy.velocity += 1
-        boy.timer = 1000
+        boy.timer = 500
 
     @staticmethod
     def exit(boy, event):
@@ -136,7 +136,7 @@ class DashState:
     def do(boy):
         boy.frame = (boy.frame + 1) % 8
         boy.timer -= 1
-        boy.x += boy.velocity * 3
+        boy.x += boy.velocity * 2
         boy.x = clamp(25, boy.x, 1600 - 25)
         if boy.timer == 0:
             boy.add_event(DASH_TIMER)
@@ -153,9 +153,9 @@ class DashState:
 
 next_state_table = {
     IdleState: {RIGHT_UP: RunState, LEFT_UP: RunState, RIGHT_DOWN: RunState, LEFT_DOWN: RunState,SLEEP_TIMER: SleepState, SPACE: IdleState,SHIFT_DOWN:IdleState,SHIFT_UP:IdleState},
-    RunState: {RIGHT_UP: IdleState, LEFT_UP: IdleState, LEFT_DOWN: IdleState, RIGHT_DOWN: IdleState, SPACE: RunState, SHIFT_DOWN:DashState,SHIFT_UP:RunState},
-    SleepState: {LEFT_DOWN: RunState, RIGHT_DOWN: RunState, LEFT_UP: RunState, RIGHT_DOWN: RunState, SPACE: IdleState, SHIFT_DOWN:IdleState,SHIFT_UP:IdleState},
-    DashState:{SHIFT_UP:RunState, SHIFT_DOWN:DashState, DASH_TIMER:RunState,  SPACE:DashState}
+    RunState: {RIGHT_UP: IdleState, LEFT_UP: IdleState, LEFT_DOWN: IdleState, RIGHT_DOWN: IdleState, SPACE: RunState, SHIFT_DOWN: DashState, SHIFT_UP: RunState},
+    SleepState: {LEFT_DOWN: RunState, RIGHT_DOWN: RunState, LEFT_UP: RunState, RIGHT_DOWN: RunState, SPACE: IdleState, SHIFT_DOWN: IdleState,SHIFT_UP: IdleState},
+    DashState:{SHIFT_UP:RunState, SHIFT_DOWN:DashState, DASH_TIMER: RunState,  SPACE: DashState, RIGHT_UP: IdleState, LEFT_UP: IdleState, RIGHT_DOWN: RunState, LEFT_DOWN: RunState}
 
 }
 
