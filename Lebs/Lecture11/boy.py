@@ -13,7 +13,9 @@ key_event_table = {
     (SDL_KEYUP, SDLK_LEFT): LEFT_UP,
     (SDL_KEYDOWN, SDLK_SPACE): SPACE,
     (SDL_KEYDOWN,SDLK_LSHIFT): SHIFT_DOWN,
-    (SDL_KEYUP,SDLK_LSHIFT): SHIFT_UP
+    (SDL_KEYUP,SDLK_LSHIFT): SHIFT_UP,
+    (SDL_KEYDOWN,SDLK_RSHIFT): SHIFT_DOWN,
+    (SDL_KEYUP,SDLK_RSHIFT): SHIFT_UP
 }
 
 
@@ -115,19 +117,36 @@ class DashState:
 
     @staticmethod
     def enter(boy, event):
-        pass
+        if event == RIGHT_DOWN:
+            boy.velocity += 1
+        elif event == LEFT_DOWN:
+            boy.velocity -= 1
+        elif event == RIGHT_UP:
+            boy.velocity -= 1
+        elif event == LEFT_UP:
+            boy.velocity += 1
+        boy.timer = 1000
 
     @staticmethod
     def exit(boy, event):
-        pass
+        if event == SPACE:
+            boy.fire_ball()
 
     @staticmethod
     def do(boy):
-        pass
+        boy.frame = (boy.frame + 1) % 8
+        boy.timer -= 1
+        boy.x += boy.velocity * 3
+        boy.x = clamp(25, boy.x, 1600 - 25)
+        if boy.timer == 0:
+            boy.add_event(DASH_TIMER)
 
     @staticmethod
     def draw(boy):
-        pass
+        if boy.velocity == 1:
+            boy.image.clip_draw(boy.frame * 100, 100, 100, 100, boy.x, boy.y)
+        else:
+            boy.image.clip_draw(boy.frame * 100, 0, 100, 100, boy.x, boy.y)
 
 
 
