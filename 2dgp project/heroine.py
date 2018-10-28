@@ -135,5 +135,4 @@ class Heroine:
                 self.UP = False
             elif key_event == DOWN_UP:
                 self.DOWN = False
-
             self.add_event(key_event)
