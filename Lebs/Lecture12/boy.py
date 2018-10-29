@@ -128,13 +128,21 @@ class SleepState:
     def draw(boy):
         if boy.dir == 1:
             boy.image.clip_composite_draw(int(boy.frame) * 100, 300, 100, 100, 3.141592 / 2, '', boy.x - 25, boy.y - 25, 100, 100)
-            boy.ghost_image.opacify(random.randint(1,10) * 0.1)
-            boy.ghost_image.clip_draw(int(boy.frame) * 100, 300, 100, 100, boy.radian * math.cos(math.radians(270 + (GHOST_ANGLE * boy.round_timer))) + boy.x, 100 * math.sin(math.radians(270 + (GHOST_ANGLE * boy.round_timer))) + boy.y * 2)
+            if boy.round_timer < 1:
+                boy.ghost_image.opacify(boy.round_timer*1/2)
+                boy.ghost_image.clip_composite_draw(int(boy.frame) * 100, 300, 100, 100, (3.141592 - (boy.round_timer * 3.141592)) / 2, '',boy.x - (25 - (boy.round_timer * 25)), boy.y - (25 - (boy.round_timer * 25)),100, 100)
+            else:
+                boy.ghost_image.opacify(random.randint(1, 100) * 0.01)
+                boy.ghost_image.clip_draw(int(boy.frame) * 100, 300, 100, 100, boy.radian * math.cos(math.radians(270 + (GHOST_ANGLE * boy.round_timer))) + boy.x, 100 * math.sin(math.radians(270 + (GHOST_ANGLE * boy.round_timer))) + boy.y * 2)
 
         else:
             boy.image.clip_composite_draw(int(boy.frame) * 100, 200, 100, 100, -3.141592 / 2, '', boy.x + 25, boy.y - 25, 100, 100)
-            boy.ghost_image.opacify(random.randint(1, 10) * 0.1)
-            boy.ghost_image.clip_draw(int(boy.frame) * 100, 300, 100, 100, boy.radian * math.cos(math.radians(270 + (GHOST_ANGLE * boy.round_timer))) + boy.x,100 * math.sin(math.radians(270 + (GHOST_ANGLE * boy.round_timer))) + boy.y * 2)
+            if boy.round_timer < 1:
+                boy.ghost_image.opacify(boy.round_timer*1/2)
+                boy.ghost_image.clip_composite_draw(int(boy.frame) * 100, 200, 100, 100, (3.141592 - (boy.round_timer * 3.141592)) / 2, '',boy.x + (25 - (boy.round_timer * 25)), boy.y - (25 - (boy.round_timer * 25)),100, 100)
+            else:
+                boy.ghost_image.opacify(random.randint(1, 100) * 0.01)
+                boy.ghost_image.clip_draw(int(boy.frame) * 100, 300, 100, 100, boy.radian * math.cos(math.radians(270 + (GHOST_ANGLE * boy.round_timer))) + boy.x, 100 * math.sin(math.radians(270 + (GHOST_ANGLE * boy.round_timer))) + boy.y * 2)
 
 
 next_state_table = {
