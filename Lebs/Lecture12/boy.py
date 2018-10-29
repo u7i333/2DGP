@@ -2,6 +2,7 @@ import game_framework
 from pico2d import *
 from ball import Ball
 
+import random
 import game_world
 
 # Boy Run Speed
@@ -110,6 +111,9 @@ class SleepState:
     @staticmethod
     def enter(boy, event):
         boy.frame = 0
+        boy.round_timer = 0
+        boy.ghost_timer = get_time()
+        boy.radian = PIXEL_PER_METER * 3
 
     @staticmethod
     def exit(boy, event):
@@ -118,17 +122,19 @@ class SleepState:
     @staticmethod
     def do(boy):
         boy.frame = (boy.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 8
+        boy.round_timer = get_time() - boy.ghost_timer
 
     @staticmethod
     def draw(boy):
         if boy.dir == 1:
             boy.image.clip_composite_draw(int(boy.frame) * 100, 300, 100, 100, 3.141592 / 2, '', boy.x - 25, boy.y - 25, 100, 100)
+            boy.ghost_image.opacify(random.randint(1,10) * 0.1)
+            boy.ghost_image.clip_draw(int(boy.frame) * 100, 300, 100, 100, boy.radian * math.cos(math.radians(270 + (GHOST_ANGLE * boy.round_timer))) + boy.x, 100 * math.sin(math.radians(270 + (GHOST_ANGLE * boy.round_timer))) + boy.y * 2)
+
         else:
             boy.image.clip_composite_draw(int(boy.frame) * 100, 200, 100, 100, -3.141592 / 2, '', boy.x + 25, boy.y - 25, 100, 100)
-
-
-
-
+            boy.ghost_image.opacify(random.randint(1, 10) * 0.1)
+            boy.ghost_image.clip_draw(int(boy.frame) * 100, 300, 100, 100, boy.radian * math.cos(math.radians(270 + (GHOST_ANGLE * boy.round_timer))) + boy.x,100 * math.sin(math.radians(270 + (GHOST_ANGLE * boy.round_timer))) + boy.y * 2)
 
 
 next_state_table = {
@@ -150,6 +156,7 @@ class Boy:
         self.event_que = []
         self.cur_state = IdleState
         self.cur_state.enter(self, None)
+        self.ghost_image = load_image('animation_sheet.png')
 
 
     def fire_ball(self):
