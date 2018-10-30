@@ -165,7 +165,7 @@ class Boy:
 
 
     def fire_ball(self):
-        ball = Ball(self.x, self.y, self.dir*RUN_SPEED_PPS)
+        ball = Ball(self.x, self.y, self.dir*RUN_SPEED_PPS*0.01)
         game_world.add_object(ball, 1)
 
 

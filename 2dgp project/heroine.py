@@ -1,5 +1,6 @@
 import game_framework
 from pico2d import *
+from my_bullet import My_Bullet
 
 import random
 import game_world
@@ -9,14 +10,13 @@ RUN_SPEED_KMPH = 20.0
 RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
 RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
 RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
-GHOST_ANGLE = 720
 
 TIME_PER_ACTION = 0.5
 ACTION_PER_TIME = 1.0 / TIME_PER_ACTION
 FRAMES_PER_ACTION = 8
 
 
-RIGHT_DOWN, LEFT_DOWN, RIGHT_UP, LEFT_UP, UP_DOWN, DOWN_DOWN, UP_UP, DOWN_UP = range(8)
+RIGHT_DOWN, LEFT_DOWN, RIGHT_UP, LEFT_UP, UP_DOWN, DOWN_DOWN, UP_UP, DOWN_UP,DOWN_X = range(9)
 
 key_event_table = {
     (SDL_KEYDOWN, SDLK_RIGHT): RIGHT_DOWN,
@@ -27,6 +27,7 @@ key_event_table = {
     (SDL_KEYDOWN, SDLK_DOWN): DOWN_DOWN,
     (SDL_KEYUP, SDLK_UP): UP_UP,
     (SDL_KEYUP, SDLK_DOWN): DOWN_UP,
+    (SDL_KEYDOWN, SDLK_x): DOWN_X,
 }
 
 class IdleState:
@@ -53,10 +54,9 @@ class IdleState:
 
 
     @staticmethod
-    def exit(boy, event):
-        #if event == SPACE:
-            #boy.fire_ball()
-        pass
+    def exit(heroine, event):
+        if event == DOWN_X:
+            heroine.shoot_bullet()
 
     @staticmethod
     def do(heroine):
@@ -94,9 +94,8 @@ class RunState:
 
     @staticmethod
     def exit(heroine, event):
-        pass
-        #if event == SPACE:
-            #boy.fire_ball()
+        if event == DOWN_X:
+            heroine.shoot_bullet()
 
     @staticmethod
     def do(heroine):
@@ -110,13 +109,15 @@ class RunState:
     def draw(heroine):
         if heroine.dir == 1:
             heroine.image.clip_draw(int(heroine.frame) * 100, 0, 100, 100, heroine.x, heroine.y)
+        elif heroine.dir == 0:
+            heroine.image.clip_draw(int(heroine.frame) * 100, 200, 100, 100, heroine.x, heroine.y)
         else:
             heroine.image.clip_draw(int(heroine.frame) * 100, 100, 100, 100, heroine.x, heroine.y)
 
 
 next_state_table = {
-    IdleState: {RIGHT_UP: RunState, LEFT_UP: RunState, RIGHT_DOWN: RunState, LEFT_DOWN: RunState, UP_UP: RunState, DOWN_UP: RunState, UP_DOWN: RunState, DOWN_DOWN: RunState},
-    RunState: {RIGHT_UP: IdleState, LEFT_UP: IdleState, LEFT_DOWN: IdleState, RIGHT_DOWN: IdleState, UP_UP: RunState, DOWN_UP: RunState, UP_DOWN: IdleState, DOWN_DOWN: IdleState }
+    IdleState: {RIGHT_UP: IdleState, LEFT_UP: IdleState, RIGHT_DOWN: RunState, LEFT_DOWN: RunState, UP_UP: IdleState, DOWN_UP: IdleState, UP_DOWN: RunState, DOWN_DOWN: RunState, DOWN_X : IdleState},
+    RunState: {RIGHT_UP: RunState, LEFT_UP: RunState, LEFT_DOWN: RunState, RIGHT_DOWN: RunState, UP_UP: RunState, DOWN_UP: RunState, UP_DOWN: RunState, DOWN_DOWN: RunState, DOWN_X: RunState }
 
 }
 
@@ -126,6 +127,7 @@ class Heroine:
         self.x, self.y = 600 // 2, 50
         self.image = load_image('reimu_sheet.png')
         self.dir = 1
+        self.bulletdir = 1
         self.velocityX = 0
         self.velocityY = 0
         self.frame = 0
@@ -136,9 +138,8 @@ class Heroine:
 
 
     def shoot_bullet(self):
-        pass
-        #ball = Ball(self.x, self.y, self.dir*RUN_SPEED_PPS)
-        #game_world.add_object(ball, 1)
+        bullet = My_Bullet(self.x, self.y, self.bulletdir*RUN_SPEED_PPS * 0.01)
+        game_world.add_object(bullet, 1)
 
 
     def add_event(self, event):

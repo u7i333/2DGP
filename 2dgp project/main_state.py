@@ -3,7 +3,7 @@ import json
 import os
 
 from pico2d import *
-
+import game_world
 import game_framework
 import title_state
 #import pause_state
@@ -37,10 +37,11 @@ def enter():
     global map, heroine
     map = Map()
     heroine = Heroine()
+    game_world.add_object(heroine, 0)
 
 def exit():
-    global map, heroine
-    del heroine
+    global map
+    game_world.clear()
     del(map)
 
 def pause():
@@ -63,12 +64,14 @@ def handle_events():
 
 def update():
     map.update()
-    heroine.update()
+    for game_object in game_world.all_objects():
+        game_object.update()
 
 def draw():
     clear_canvas()
     map.draw()
-    heroine.draw()
+    for game_object in game_world.all_objects():
+        game_object.draw()
     update_canvas()
 
 
