@@ -1,10 +1,22 @@
+import game_framework
 from pico2d import *
 
-# Boy State
-IDLE, RUN = range(2)
+import random
+import game_world
 
-# Boy Event
-RIGHT_DOWN, LEFT_DOWN, RIGHT_UP, LEFT_UP,UP_DOWN, DOWN_DOWN, UP_UP, DOWN_UP = range(8)
+PIXEL_PER_METER = (10.0 /0.3)
+RUN_SPEED_KMPH = 20.0
+RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
+RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
+RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
+GHOST_ANGLE = 720
+
+TIME_PER_ACTION = 0.5
+ACTION_PER_TIME = 1.0 / TIME_PER_ACTION
+FRAMES_PER_ACTION = 8
+
+
+RIGHT_DOWN, LEFT_DOWN, RIGHT_UP, LEFT_UP, UP_DOWN, DOWN_DOWN, UP_UP, DOWN_UP = range(8)
 
 key_event_table = {
     (SDL_KEYDOWN, SDLK_RIGHT): RIGHT_DOWN,
@@ -14,125 +26,137 @@ key_event_table = {
     (SDL_KEYDOWN, SDLK_UP): UP_DOWN,
     (SDL_KEYDOWN, SDLK_DOWN): DOWN_DOWN,
     (SDL_KEYUP, SDLK_UP): UP_UP,
-    (SDL_KEYUP, SDLK_DOWN): DOWN_UP
+    (SDL_KEYUP, SDLK_DOWN): DOWN_UP,
 }
+
+class IdleState:
+
+    @staticmethod
+    def enter(heroine, event):
+        if event == RIGHT_DOWN:
+            heroine.velocityX += RUN_SPEED_PPS
+        elif event == LEFT_DOWN:
+            heroine.velocityX -= RUN_SPEED_PPS
+        elif event == RIGHT_UP:
+            heroine.velocityX -= RUN_SPEED_PPS
+        elif event == LEFT_UP:
+            heroine.velocityX += RUN_SPEED_PPS
+        if event == UP_DOWN:
+            heroine.velocityY += RUN_SPEED_PPS
+        elif event == DOWN_DOWN:
+            heroine.velocityY -= RUN_SPEED_PPS
+        elif event == UP_UP:
+            heroine.velocityY -= RUN_SPEED_PPS
+        elif event == DOWN_UP:
+            heroine.velocityY += RUN_SPEED_PPS
+        heroine.dir = clamp(-1, heroine.velocityX, 1)
+
+
+    @staticmethod
+    def exit(boy, event):
+        #if event == SPACE:
+            #boy.fire_ball()
+        pass
+
+    @staticmethod
+    def do(heroine):
+        heroine.frame = (heroine.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 8
+
+    @staticmethod
+    def draw(heroine):
+        if heroine.dir == 1:
+            heroine.image.clip_draw(int(heroine.frame) * 100, 200, 100, 100, heroine.x, heroine.y)
+        else:
+            heroine.image.clip_draw(int(heroine.frame) * 100, 200, 100, 100, heroine.x, heroine.y)
+
+class RunState:
+
+    @staticmethod
+    def enter(heroine, event):
+        if event == RIGHT_DOWN:
+            heroine.velocityX += RUN_SPEED_PPS
+        elif event == LEFT_DOWN:
+            heroine.velocityX -= RUN_SPEED_PPS
+        elif event == RIGHT_UP:
+            heroine.velocityX -= RUN_SPEED_PPS
+        elif event == LEFT_UP:
+            heroine.velocityX += RUN_SPEED_PPS
+        if event == UP_DOWN:
+            heroine.velocityY += RUN_SPEED_PPS
+        elif event == DOWN_DOWN:
+            heroine.velocityY -= RUN_SPEED_PPS
+        elif event == UP_UP:
+            heroine.velocityY -= RUN_SPEED_PPS
+        elif event == DOWN_UP:
+            heroine.velocityY += RUN_SPEED_PPS
+        heroine.dir = clamp(-1, heroine.velocityX, 1)
+        pass
+
+    @staticmethod
+    def exit(heroine, event):
+        pass
+        #if event == SPACE:
+            #boy.fire_ball()
+
+    @staticmethod
+    def do(heroine):
+        heroine.frame = (heroine.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 8
+        heroine.x += heroine.velocityX * game_framework.frame_time
+        heroine.x = clamp(25, heroine.x, 600 - 25)
+        heroine.y += heroine.velocityY * game_framework.frame_time
+        heroine.y = clamp(10, heroine.y, 800 - 25)
+
+    @staticmethod
+    def draw(heroine):
+        if heroine.dir == 1:
+            heroine.image.clip_draw(int(heroine.frame) * 100, 0, 100, 100, heroine.x, heroine.y)
+        else:
+            heroine.image.clip_draw(int(heroine.frame) * 100, 100, 100, 100, heroine.x, heroine.y)
+
 
 next_state_table = {
-    IDLE: {RIGHT_UP: RUN, LEFT_UP: RUN, RIGHT_DOWN: RUN,LEFT_DOWN: RUN, UP_UP: RUN, DOWN_UP: RUN, UP_DOWN: RUN, DOWN_DOWN: RUN},
-    RUN: {RIGHT_UP: IDLE, LEFT_UP: IDLE, RIGHT_DOWN: IDLE,LEFT_DOWN: IDLE, UP_UP: IDLE, DOWN_UP: IDLE, UP_DOWN: IDLE, DOWN_DOWN: IDLE}
-}
+    IdleState: {RIGHT_UP: RunState, LEFT_UP: RunState, RIGHT_DOWN: RunState, LEFT_DOWN: RunState, UP_UP: RunState, DOWN_UP: RunState, UP_DOWN: RunState, DOWN_DOWN: RunState},
+    RunState: {RIGHT_UP: IdleState, LEFT_UP: IdleState, LEFT_DOWN: IdleState, RIGHT_DOWN: IdleState, UP_UP: RunState, DOWN_UP: RunState, UP_DOWN: IdleState, DOWN_DOWN: IdleState }
 
+}
 
 class Heroine:
 
     def __init__(self):
-        self.event_que = []
-        self.x, self.y = 600 // 2, 90
+        self.x, self.y = 600 // 2, 50
         self.image = load_image('reimu_sheet.png')
-        self.cur_state = IDLE
         self.dir = 1
-        self.RIGHT = False
-        self.LEFT = False
-        self.UP = False
-        self.DOWN = False
-        self.enter_state[IDLE](self)
-        self.velocityX= 0
+        self.velocityX = 0
         self.velocityY = 0
-
-
-    # IDLE state functions
-    def enter_IDLE(self):
-        self.timer = 1000
         self.frame = 0
+        self.event_que = []
+        self.cur_state = IdleState
+        self.cur_state.enter(self, None)
 
-    def exit_IDLE(self):
+
+
+    def shoot_bullet(self):
         pass
+        #ball = Ball(self.x, self.y, self.dir*RUN_SPEED_PPS)
+        #game_world.add_object(ball, 1)
 
-    def do_IDLE(self):
-        self.frame = (self.frame + 1) % 8
-        self.timer -= 1
-
-    def draw_IDLE(self):
-            self.image.clip_draw(self.frame * 100, 200, 100, 100, self.x, self.y)
-
-
-    # RUN state functions
-    def enter_RUN(self):
-        self.frame = 0
-        self.dir = self.velocityX
-
-    def exit_RUN(self):
-        pass
-
-    def do_RUN(self):
-        if self.RIGHT == True:
-            #self.x += 1
-            self.velocityX += 0.1
-        if self.LEFT == True:
-            #self.x -= 1
-            self.velocityX -= 0.1
-        if self.UP == True:
-            #self.y += 1
-            self.velocityY += 0.1
-        if self.DOWN == True:
-            #self.y -= 1
-            self.velocityY -= 0.1
-
-        self.frame = (self.frame + 1) % 8
-        self.x += self.velocityX
-        self.x = clamp(25, self.x, 800-25)
-        self.y += self.velocityY
-        self.y = clamp(25, self.y, 800 - 25)
-
-    def draw_RUN(self):
-        if self.RIGHT == True:
-            self.image.clip_draw(self.frame * 100, 0, 100, 100, self.x, self.y)
-        else: #self.LEFT == True:
-            self.image.clip_draw(self.frame * 100, 100, 100, 100, self.x, self.y)
 
     def add_event(self, event):
         self.event_que.insert(0, event)
 
-    def change_state(self,  state):
-        self.exit_state[self.cur_state](self)
-        self.enter_state[state](self)
-        self.cur_state = state
-
-    enter_state = {IDLE: enter_IDLE, RUN: enter_RUN}
-    exit_state = {IDLE: exit_IDLE, RUN: exit_RUN}
-    do_state = {IDLE: do_IDLE, RUN: do_RUN}
-    draw_state = {IDLE: draw_IDLE, RUN: draw_RUN}
-
-
     def update(self):
-        self.do_state[self.cur_state](self)
+        self.cur_state.do(self)
         if len(self.event_que) > 0:
             event = self.event_que.pop()
-            self.change_state(next_state_table[self.cur_state][event])
-
+            self.cur_state.exit(self, event)
+            self.cur_state = next_state_table[self.cur_state][event]
+            self.cur_state.enter(self, event)
 
     def draw(self):
-        self.draw_state[self.cur_state](self)
-
+        self.cur_state.draw(self)
 
     def handle_event(self, event):
         if (event.type, event.key) in key_event_table:
             key_event = key_event_table[(event.type, event.key)]
-            if key_event == RIGHT_DOWN:
-                self.RIGHT = True
-            elif key_event == LEFT_DOWN:
-                self.LEFT = True
-            if key_event == UP_DOWN:
-                self.UP = True
-            elif key_event == DOWN_DOWN:
-                self.DOWN = True
-
-            if key_event == RIGHT_UP:
-                self.RIGHT = False
-            elif key_event == LEFT_UP:
-                self.LEFT = False
-            if key_event == UP_UP:
-                self.UP = False
-            elif key_event == DOWN_UP:
-                self.DOWN = False
             self.add_event(key_event)
+
