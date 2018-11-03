@@ -32,7 +32,7 @@ def draw():
     clear_canvas()
     main_state.draw()
     if (blink_time == True):
-        image.draw(400, 300)
+        image.draw(300, 400)
     update_canvas()
     delay(0.5)
 

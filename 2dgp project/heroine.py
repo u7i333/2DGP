@@ -1,6 +1,7 @@
 import game_framework
 from pico2d import *
 from my_bullet import My_Bullet
+from my_bullet import Speciel_Bullet
 
 import random
 import game_world
@@ -16,7 +17,7 @@ ACTION_PER_TIME = 1.0 / TIME_PER_ACTION
 FRAMES_PER_ACTION = 8
 
 
-RIGHT_DOWN, LEFT_DOWN, RIGHT_UP, LEFT_UP, UP_DOWN, DOWN_DOWN, UP_UP, DOWN_UP,DOWN_X = range(9)
+RIGHT_DOWN, LEFT_DOWN, RIGHT_UP, LEFT_UP, UP_DOWN, DOWN_DOWN, UP_UP, DOWN_UP,DOWN_X,DOWN_SPACE = range(10)
 
 key_event_table = {
     (SDL_KEYDOWN, SDLK_RIGHT): RIGHT_DOWN,
@@ -28,6 +29,7 @@ key_event_table = {
     (SDL_KEYUP, SDLK_UP): UP_UP,
     (SDL_KEYUP, SDLK_DOWN): DOWN_UP,
     (SDL_KEYDOWN, SDLK_x): DOWN_X,
+    (SDL_KEYDOWN, SDLK_SPACE): DOWN_SPACE,
 }
 
 class IdleState:
@@ -96,6 +98,8 @@ class RunState:
     def exit(heroine, event):
         if event == DOWN_X:
             heroine.shoot_bullet()
+        if event == DOWN_SPACE:
+            heroine.shoot_special_bullet()
 
     @staticmethod
     def do(heroine):
@@ -116,8 +120,8 @@ class RunState:
 
 
 next_state_table = {
-    IdleState: {RIGHT_UP: IdleState, LEFT_UP: IdleState, RIGHT_DOWN: RunState, LEFT_DOWN: RunState, UP_UP: IdleState, DOWN_UP: IdleState, UP_DOWN: RunState, DOWN_DOWN: RunState, DOWN_X : IdleState},
-    RunState: {RIGHT_UP: RunState, LEFT_UP: RunState, LEFT_DOWN: RunState, RIGHT_DOWN: RunState, UP_UP: RunState, DOWN_UP: RunState, UP_DOWN: RunState, DOWN_DOWN: RunState, DOWN_X: RunState }
+    IdleState: {RIGHT_UP: IdleState, LEFT_UP: IdleState, RIGHT_DOWN: RunState, LEFT_DOWN: RunState, UP_UP: IdleState, DOWN_UP: IdleState, UP_DOWN: RunState, DOWN_DOWN: RunState, DOWN_X : IdleState, DOWN_SPACE : IdleState},
+    RunState: {RIGHT_UP: RunState, LEFT_UP: RunState, LEFT_DOWN: RunState, RIGHT_DOWN: RunState, UP_UP: RunState, DOWN_UP: RunState, UP_DOWN: RunState, DOWN_DOWN: RunState, DOWN_X: RunState, DOWN_SPACE : RunState }
 
 }
 
@@ -134,6 +138,7 @@ class Heroine:
         self.event_que = []
         self.cur_state = IdleState
         self.cur_state.enter(self, None)
+        self.special_count = 3
 
 
 
@@ -141,6 +146,11 @@ class Heroine:
         bullet = My_Bullet(self.x, self.y, self.bulletdir*RUN_SPEED_PPS * 0.01)
         game_world.add_object(bullet, 1)
 
+    def shoot_special_bullet(self):
+        if(self.special_count > 0):
+            bullet = Speciel_Bullet (self.x, self.y, self.bulletdir * RUN_SPEED_PPS * 0.01)
+            game_world.add_object(bullet, 1)
+            self.special_count = self.special_count -1
 
     def add_event(self, event):
         self.event_que.insert(0, event)
