@@ -143,12 +143,12 @@ class Heroine:
 
 
     def shoot_bullet(self):
-        bullet = My_Bullet(self.x, self.y, self.bulletdir*RUN_SPEED_PPS * 0.01)
+        bullet = My_Bullet(self.x, self.y, self.bulletdir*RUN_SPEED_PPS * 0.05)
         game_world.add_object(bullet, 1)
 
     def shoot_special_bullet(self):
         if(self.special_count > 0):
-            bullet = Speciel_Bullet (self.x, self.y, self.bulletdir * RUN_SPEED_PPS * 0.01)
+            bullet = Speciel_Bullet (self.x, self.y, self.bulletdir * RUN_SPEED_PPS * 0.05)
             game_world.add_object(bullet, 1)
             self.special_count = self.special_count -1
 

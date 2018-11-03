@@ -10,6 +10,9 @@ import title_state
 import senior_pause_state
 from heroine import Heroine
 from norml_enemy import Blue_enemy
+from norml_enemy import Black_enemy
+from norml_enemy import Red_enemy
+from norml_enemy import Green_enemy
 
 name = "MainState"
 
@@ -24,6 +27,7 @@ class Map:
 
     def __init__(self):
         self.image = load_image('shooting_ground.bmp')
+
 
     def draw(self):
         self.image.draw(400, +4850 - 600 - self.y)
@@ -41,6 +45,8 @@ def enter():
     map = Map()
     heroine = Heroine()
     game_world.add_object(heroine, 1)
+    #global summontime
+    #summontime = get_time()
 
 
 
@@ -69,13 +75,47 @@ def handle_events():
 
 def update():
     map.update()
+
     for game_object in game_world.all_objects():
         game_object.update()
-    blue_enemy1 = Blue_enemy(600,500)
+    blue_enemy1 = [Blue_enemy(i,j) for (i,j) in [(600,500),(650,500),(700,500)] ]
+    red_enemy = [Red_enemy(i,j) for (i,j) in [(0,500),(-50,500),(-100,500)] ]
     blue_enemy2 = Blue_enemy(600,400)
-    if(map.y == 1):
-        game_world.add_object(blue_enemy1, 1)
-    if(map.y == 1000 ):
+    black_enemy = Black_enemy(0,450)
+    green_enemy = Green_enemy(600,450)
+
+    #if(get_time() - summontime) == 1):
+    if (map.y == 1):
+        for i in range(0,3):
+            game_world.add_object(blue_enemy1[i], 1)
+
+    if (map.y == 50):
+        for i in range(0, 3):
+            game_world.add_object(red_enemy[i], 1)
+
+    if(map. y == 100):
+        game_world.add_object(black_enemy,1)
+        game_world.add_object(green_enemy,1)
+
+    if (map.y == 200):
+        for i in range(0,3):
+            game_world.add_object(blue_enemy1[i], 1)
+
+
+    if(map.y == 270):
+        red_enemy = [Red_enemy(i, j) for (i, j) in [(0, 650), (-50, 650), (-100, 650)]]
+        black_enemy = Black_enemy(0,600)
+        green_enemy = Green_enemy(600,600)
+        game_world.add_object(black_enemy,1)
+        game_world.add_object(green_enemy,1)
+
+
+    if (map.y == 300):
+        for i in range(0, 3):
+            game_world.add_object(red_enemy[i], 1)
+
+
+    if (map.y == 1000):
         game_world.add_object(blue_enemy2, 1)
 
 
