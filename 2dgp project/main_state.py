@@ -9,12 +9,14 @@ import title_state
 #import pause_state
 import senior_pause_state
 from heroine import Heroine
+from norml_enemy import Blue_enemy
 
 name = "MainState"
 
 
 map = None
 heroine = None
+blue_enemy = None
 
 class Map:
     y = 0
@@ -33,11 +35,14 @@ class Map:
             self.y = 0
 
 
+
 def enter():
     global map, heroine
     map = Map()
     heroine = Heroine()
-    game_world.add_object(heroine, 0)
+    game_world.add_object(heroine, 1)
+
+
 
 def exit():
     global map
@@ -66,6 +71,13 @@ def update():
     map.update()
     for game_object in game_world.all_objects():
         game_object.update()
+    blue_enemy1 = Blue_enemy(600,500)
+    blue_enemy2 = Blue_enemy(600,400)
+    if(map.y == 1):
+        game_world.add_object(blue_enemy1, 1)
+    if(map.y == 1000 ):
+        game_world.add_object(blue_enemy2, 1)
+
 
 def draw():
     clear_canvas()
