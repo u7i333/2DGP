@@ -13,6 +13,7 @@ from norml_enemy import Blue_enemy
 from norml_enemy import Black_enemy
 from norml_enemy import Red_enemy
 from norml_enemy import Green_enemy
+from bose_enemy import Bose_enemy
 
 name = "MainState"
 
@@ -101,7 +102,6 @@ def update():
         for i in range(0,3):
             game_world.add_object(blue_enemy1[i], 1)
 
-
     if(map.y == 270):
         red_enemy = [Red_enemy(i, j) for (i, j) in [(0, 650), (-50, 650), (-100, 650)]]
         black_enemy = Black_enemy(0,600)
@@ -109,15 +109,16 @@ def update():
         game_world.add_object(black_enemy,1)
         game_world.add_object(green_enemy,1)
 
-
     if (map.y == 300):
         for i in range(0, 3):
             game_world.add_object(red_enemy[i], 1)
 
-
-    if (map.y == 1000):
+    if (map.y == 500):
         game_world.add_object(blue_enemy2, 1)
 
+    if (map.y == 200):
+        bose_enemy = Bose_enemy(300,800)
+        game_world.add_object(bose_enemy, 1)
 
 def draw():
     clear_canvas()
