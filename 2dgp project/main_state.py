@@ -116,7 +116,7 @@ def update():
     if (map.y == 500):
         game_world.add_object(blue_enemy2, 1)
 
-    if (map.y == 200):
+    if (map.y == 600):
         bose_enemy = Bose_enemy(300,800)
         game_world.add_object(bose_enemy, 1)
 

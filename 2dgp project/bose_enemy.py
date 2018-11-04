@@ -1,7 +1,7 @@
 from pico2d import *
 import game_framework
 import game_world
-
+from enemy_bullet import Star_Bullet
 
 PIXEL_PER_METER = (10.0 /0.3)
 RUN_SPEED_KMPH = 20.0
@@ -25,12 +25,18 @@ class Bose_enemy:
         self.count = 0
         self.time = get_time()
         self.framecount = 0
+        self.velocity = 0
+        self.bulletcolor = 0
 
     def shoot_enemy_bullet(self):
-        pass
+        enemy_bullet = Star_Bullet(self.x, self.y, self.bulletdir, self.bulletcolor)
+        game_world.add_object(enemy_bullet, 1)
 
     def draw(self):
-        self.image.clip_draw(int(self.frame) * 100, 100, 100, 100, self.x, self.y) # 300,800
+        if self.velocity == 0:
+            self.image.clip_draw(int(self.frame) * 100, 100, 100, 100, self.x, self.y) # 300,800
+        else:
+            self.image.clip_draw(int(self.frame) * 100, 0, 100, 100, self.x, self.y)  # 300,800
 
 
 
@@ -39,29 +45,34 @@ class Bose_enemy:
 
         if(get_time() - self.time > 1):
             Bose_enemy.shoot_enemy_bullet(self)
+            self.bulletcolor = (self.bulletcolor+1)%7
             self.time = get_time()
 
         if(self.count == 0):
-            self.y = self.y - 1
+            self.velocity = 1
+            self.y = self.y - self.velocity
             if(self.y < 750):
                 self.count = 1
 
         if(self.count == 1):
-            self.x -= 1
-            self.y -= 0.3
+            self.x -= self.velocity
+            self.y -= self.velocity*0.3
             if (self.x < 50):
                  self.count = 2
 
         if (self.count == 2):
+            self.velocity = 0
             self.x += 1
             if (self.x > 550):
                 self.count = 3
 
         if(self.count == 3):
-            self.x -= 1
-            self.y += 0.3
+            self.velocity = 1
+            self.x -= self.velocity
+            self.y += self.velocity*0.3
             if(self.x <= 300):
                 self.count = 5
+                self.velocity = 0
 
         if self.x <= 25:
             game_world.remove_object(self)

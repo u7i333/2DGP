@@ -70,3 +70,36 @@ class Green_Enemy_Bullet:
         self.y -= self.velocity
         if self.y < 25 or self.y > 800 - 25:
             game_world.remove_object(self)
+
+
+class Star_Bullet:
+    image = None
+
+    def __init__(self, x = 400, y = 300, velocity =1, frame = 0):
+        if Star_Bullet.image == None:
+            Star_Bullet.image = load_image('star_bullet.png')
+        self.x, self.y, self.velocity, self.frame = x, y, velocity, frame
+
+    def draw(self):
+        self.image.clip_draw(int(self.frame) * 50, 0, 50, 50, self.x, self.y)
+
+    def update(self):
+        self.y -= self.velocity*5
+        if self.y < 25 or self.y > 800 - 25:
+            game_world.remove_object(self)
+
+class Bose_Laser_Bullet:
+    image = None
+
+    def __init__(self, x = 400, y = 300, velocity =1, frame = 0):
+        if Star_Bullet.image == None:
+            Star_Bullet.image = load_image('star_bullet.png')
+        self.x, self.y, self.velocity, self.frame = x, y, velocity, frame
+
+    def draw(self):
+        self.image.clip_draw(int(self.frame) * 50, 0, 50, 50, self.x, self.y)
+
+    def update(self):
+        self.y -= self.velocity*5
+        if self.y < 25 or self.y > 800 - 25:
+            game_world.remove_object(self)
