@@ -85,6 +85,7 @@ def update():
     black_enemy = Black_enemy(0,450)
     green_enemy = Green_enemy(600,450)
 
+
     #if(get_time() - summontime) == 1):
     if (map.y == 1):
         for i in range(0,3):
@@ -116,7 +117,7 @@ def update():
     if (map.y == 500):
         game_world.add_object(blue_enemy2, 1)
 
-    if (map.y == 600):
+    if (map.y == 700):
         bose_enemy = Bose_enemy(300,800)
         game_world.add_object(bose_enemy, 1)
 
