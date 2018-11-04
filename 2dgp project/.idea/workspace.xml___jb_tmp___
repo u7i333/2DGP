@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ebd2c402-a81c-420a-b811-615e629a77fb" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bose_enemy.py" beforeDir="false" afterPath="$PROJECT_DIR$/bose_enemy.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/enemy_bullet.py" beforeDir="false" afterPath="$PROJECT_DIR$/enemy_bullet.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml___jb_tmp___" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml___jb_tmp___" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main_state.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_state.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/master_spark.png" beforeDir="false" afterPath="$PROJECT_DIR$/master_spark.png" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -35,27 +32,27 @@
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="bmp" value="4" />
-          <entry key="png" value="63" />
-          <entry key="py" value="106" />
+          <entry key="png" value="69" />
+          <entry key="py" value="113" />
           <entry key="py___jb_tmp___" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Image" value="67" />
+          <entry key="Image" value="73" />
           <entry key="PLAIN_TEXT" value="1" />
-          <entry key="Python" value="106" />
+          <entry key="Python" value="113" />
           <entry key="UNKNOWN" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="7949" />
+          <entry key="py" value="7972" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="7949" />
+          <entry key="Python" value="7972" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.vcs.git.usages" />
@@ -69,45 +66,58 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bose_enemy.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="487">
-              <caret line="94" column="47" selection-start-line="94" selection-start-column="47" selection-end-line="94" selection-end-column="47" />
+            <state relative-caret-position="449">
+              <caret line="94" column="30" selection-start-line="94" selection-start-column="30" selection-end-line="94" selection-end-column="30" />
               <folding>
                 <element signature="e#0#20#0" expanded="true" />
-                <marker date="1541309216178" expanded="true" signature="816:1100" ph="..." />
+                <marker date="1541309454637" expanded="true" signature="816:1100" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/blue_enemy_bullet.png">
+        <entry file="file://$PROJECT_DIR$/master_spark.png">
           <provider selected="true" editor-type-id="images" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/bose_enemy.png">
-          <provider selected="true" editor-type-id="images" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/game_world.py">
+        <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="133">
-              <caret line="7" selection-start-line="7" selection-end-line="7" />
+            <state relative-caret-position="76">
+              <caret line="7" column="21" selection-start-line="7" selection-start-column="21" selection-end-line="7" selection-end-column="21" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/main_state.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="484">
+              <caret line="120" column="20" selection-start-line="120" selection-start-column="20" selection-end-line="120" selection-end-column="20" />
+              <folding>
+                <element signature="e#0#13#0" expanded="true" />
+                <marker date="1541318750145" expanded="true" signature="728:730" ph="..." />
+                <marker date="1541318750145" expanded="true" signature="729:730" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/kpu_credit.png">
+        <entry file="file://$PROJECT_DIR$/green_enemy_bullet.png">
           <provider selected="true" editor-type-id="images" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/game_framework.py">
+        <entry file="file://$PROJECT_DIR$/enemy_bullet.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="546">
-              <caret line="98" selection-start-line="98" selection-end-line="98" />
+            <state relative-caret-position="308">
+              <caret line="105" column="36" selection-start-line="105" selection-start-column="36" selection-end-line="105" selection-end-column="36" />
+              <folding>
+                <element signature="e#0#20#0" expanded="true" />
+                <marker date="1541309368439" expanded="true" signature="2890:2899" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -118,23 +128,9 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/main_state.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="446">
-              <caret line="121" column="44" lean-forward="true" selection-start-line="121" selection-start-column="44" selection-end-line="121" selection-end-column="44" />
-              <folding>
-                <element signature="e#0#13#0" expanded="true" />
-                <marker date="1541302475279" expanded="true" signature="728:730" ph="..." />
-                <marker date="1541302475279" expanded="true" signature="729:730" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/heroine.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1482">
+            <state relative-caret-position="19">
               <caret line="12" column="49" selection-start-line="12" selection-start-column="49" selection-end-line="12" selection-end-column="49" />
               <folding>
                 <element signature="e#0#21#0" expanded="true" />
@@ -143,15 +139,16 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/enemy_bullet.py">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/kpu_credit.png">
+          <provider selected="true" editor-type-id="images" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/game_world.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="479">
-              <caret line="112" column="25" selection-start-line="112" selection-start-column="25" selection-end-line="112" selection-end-column="25" />
-              <folding>
-                <element signature="e#0#20#0" expanded="true" />
-                <marker date="1541308838811" expanded="true" signature="2890:2899" ph="..." />
-              </folding>
+            <state relative-caret-position="133">
+              <caret line="7" selection-start-line="7" selection-end-line="7" />
             </state>
           </provider>
         </entry>
@@ -181,15 +178,15 @@
         <option value="$PROJECT_DIR$/my_bullet.py" />
         <option value="$PROJECT_DIR$/norml_enemy.py" />
         <option value="$PROJECT_DIR$/heroine.py" />
-        <option value="$PROJECT_DIR$/main_state.py" />
         <option value="$PROJECT_DIR$/enemy_bullet.py" />
         <option value="$PROJECT_DIR$/bose_enemy.py" />
+        <option value="$PROJECT_DIR$/main_state.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="1">
-    <option name="x" value="602" />
-    <option name="y" value="165" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="588" />
+    <option name="y" value="122" />
     <option name="width" value="1703" />
     <option name="height" value="1080" />
   </component>
@@ -270,11 +267,11 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="602" y="165" width="1703" height="1080" extended-state="0" />
+    <frame x="107" y="422" width="1703" height="1080" extended-state="1" />
     <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" sideWeight="0.5016835" side_tool="true" weight="0.24984986" />
-      <window_info active="true" content_ui="combo" id="Project" order="1" sideWeight="0.4983165" visible="true" weight="0.24984986" />
+      <window_info content_ui="combo" id="Project" order="1" sideWeight="0.4983165" visible="true" weight="0.24984986" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="0" />
       <window_info anchor="bottom" id="Event Log" order="1" side_tool="true" />
@@ -282,7 +279,7 @@
       <window_info anchor="bottom" id="Message" order="3" />
       <window_info anchor="bottom" id="Find" order="4" />
       <window_info anchor="bottom" id="Version Control" order="5" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Run" order="6" visible="true" weight="0.30866808" />
+      <window_info active="true" anchor="bottom" id="Run" order="6" visible="true" weight="0.30866808" />
       <window_info anchor="bottom" id="Debug" order="7" weight="0.39889503" />
       <window_info anchor="bottom" id="Cvs" order="8" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
@@ -384,12 +381,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="7" column="21" selection-start-line="7" selection-start-column="21" selection-end-line="7" selection-end-column="21" />
-        </state>
-      </provider>
+    <entry file="file://$PROJECT_DIR$/blue_enemy.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/blue_enemy(L).png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/black_enemy(R).png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/enemy_bullet.py___jb_tmp___">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bullet.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bose_enemy.py___jb_tmp___">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/my_bullet.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -411,25 +419,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/green_enemy_bullet.png">
+    <entry file="file://$PROJECT_DIR$/bose_enemy.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/blue_enemy.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/blue_enemy(L).png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/black_enemy(R).png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/enemy_bullet.py___jb_tmp___">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bullet.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/master_spark.png">
+    <entry file="file://$PROJECT_DIR$/blue_enemy_bullet.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
     <entry file="file://$PROJECT_DIR$/game_framework.py">
@@ -439,32 +432,56 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bose_enemy.py___jb_tmp___">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/blue_enemy_bullet.png">
+    <entry file="file://$PROJECT_DIR$/kpu_credit.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/kpu_credit.png">
+    <entry file="file://$PROJECT_DIR$/enemy_bullet.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="105" column="36" selection-start-line="105" selection-start-column="36" selection-end-line="105" selection-end-column="36" />
+          <folding>
+            <element signature="e#0#20#0" expanded="true" />
+            <marker date="1541309368439" expanded="true" signature="2890:2899" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bose_enemy.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="449">
+          <caret line="94" column="30" selection-start-line="94" selection-start-column="30" selection-end-line="94" selection-end-column="30" />
+          <folding>
+            <element signature="e#0#20#0" expanded="true" />
+            <marker date="1541309454637" expanded="true" signature="816:1100" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/master_spark.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="7" column="21" selection-start-line="7" selection-start-column="21" selection-end-line="7" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/heroine.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="19">
+          <caret line="12" column="49" selection-start-line="12" selection-start-column="49" selection-end-line="12" selection-end-column="49" />
+          <folding>
+            <element signature="e#0#21#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/green_enemy_bullet.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
     <entry file="file://$PROJECT_DIR$/green_enemy(L).png">
       <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bose_enemy.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main_state.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="446">
-          <caret line="121" column="44" lean-forward="true" selection-start-line="121" selection-start-column="44" selection-end-line="121" selection-end-column="44" />
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-            <marker date="1541302475279" expanded="true" signature="728:730" ph="..." />
-            <marker date="1541302475279" expanded="true" signature="729:730" ph="..." />
-          </folding>
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/game_world.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -473,34 +490,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/heroine.py">
+    <entry file="file://$PROJECT_DIR$/main_state.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1482">
-          <caret line="12" column="49" selection-start-line="12" selection-start-column="49" selection-end-line="12" selection-end-column="49" />
+        <state relative-caret-position="484">
+          <caret line="120" column="20" selection-start-line="120" selection-start-column="20" selection-end-line="120" selection-end-column="20" />
           <folding>
-            <element signature="e#0#21#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bose_enemy.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="487">
-          <caret line="94" column="47" selection-start-line="94" selection-start-column="47" selection-end-line="94" selection-end-column="47" />
-          <folding>
-            <element signature="e#0#20#0" expanded="true" />
-            <marker date="1541309216178" expanded="true" signature="816:1100" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/enemy_bullet.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="479">
-          <caret line="112" column="25" selection-start-line="112" selection-start-column="25" selection-end-line="112" selection-end-column="25" />
-          <folding>
-            <element signature="e#0#20#0" expanded="true" />
-            <marker date="1541308838811" expanded="true" signature="2890:2899" ph="..." />
+            <element signature="e#0#13#0" expanded="true" />
+            <marker date="1541318750145" expanded="true" signature="728:730" ph="..." />
+            <marker date="1541318750145" expanded="true" signature="729:730" ph="..." />
           </folding>
         </state>
       </provider>

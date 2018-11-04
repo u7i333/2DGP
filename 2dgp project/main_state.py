@@ -113,11 +113,12 @@ def update():
     if (map.y == 300):
         for i in range(0, 3):
             game_world.add_object(red_enemy[i], 1)
-
+    """
     if (map.y == 500):
         game_world.add_object(blue_enemy2, 1)
+    """
 
-    if (map.y == 700):
+    if (map.y == 500):
         bose_enemy = Bose_enemy(300,800)
         game_world.add_object(bose_enemy, 1)
 
