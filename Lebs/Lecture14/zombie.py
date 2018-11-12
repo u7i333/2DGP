@@ -40,28 +40,49 @@ class Zombie:
         self.build_behavior_tree()
 
     def wander(self):
-        # fill here
-        pass
+        self.speed = RUN_SPEED_PPS
+        self.timer -= game_framework.frame_time
+        if self.timer < 0:
+            self.timer += 1.0
+            self.dir = random.random()*2*math.pi
+
+        return BehaviorTree.SUCCESS
 
     def find_player(self):
-        # fill here
-        pass
+        boy = main_state.get_boy()
+        distance = (boy.x - self.x)**2 + (boy.y - self.y)**2
+        if distance < (PIXEL_PER_METER * 10)**2:
+            self.dir = math.atan2(boy.y - self.y, boy.x - self.x)
+            return BehaviorTree.SUCCESS
+        else:
+            self.speed = 0
+            return BehaviorTree.FAIL
 
     def move_to_player(self):
-        # fill here
-        pass
+        self.speed = RUN_SPEED_PPS
+        return BehaviorTree.SUCCESS
 
     def build_behavior_tree(self):
-        # fill here
-        pass
+        wander_node = LeafNode("Wander",self.wander)
+        find_player_node = LeafNode("Find Player",self.find_player)
+        move_to_player_node = LeafNode("Move to Player", self.move_to_player)
+        chase_node = SequenceNode("chase")
+        chase_node.add_children(find_player_node,move_to_player_node)
+        wander_chase_node = SelectorNode("WanderChase")
+        wander_chase_node.add_children(chase_node, wander_node)
+        self.bt = BehaviorTree(wander_chase_node)
 
 
     def get_bb(self):
         return self.x - 50, self.y - 50, self.x + 50, self.y + 50
 
     def update(self):
-        # fill here
-        pass
+        self.bt.run()
+        self.frame = (self.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % FRAMES_PER_ACTION
+        self.x += self.speed * math.cos(self.dir) * game_framework.frame_time
+        self.y += self.speed * math.sin(self.dir) * game_framework.frame_time
+        self.x = clamp(50, self.x, 1280 - 50)
+        self.y = clamp(50, self.y, 1024 - 50)
 
 
     def draw(self):
