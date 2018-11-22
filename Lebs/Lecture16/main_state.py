@@ -16,7 +16,6 @@ boy = None
 grass = None
 balls = []
 
-
 def collide(a, b):
     # fill here
     left_a, bottom_a, right_a, top_a = a.get_bb()
@@ -76,7 +75,7 @@ def update():
     for ball in balls:
         if collide(boy, ball):
             balls.remove(ball)
-            # fill here
+            boy.eat(ball)
             game_world.remove_object(ball)
 
 def draw():
