@@ -76,6 +76,7 @@ def update():
         if collide(boy, ball):
             balls.remove(ball)
             boy.eat(ball)
+            boy.ballcount = boy.ballcount +1
             game_world.remove_object(ball)
 
 def draw():
