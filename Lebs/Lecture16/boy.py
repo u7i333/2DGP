@@ -111,7 +111,7 @@ class Boy:
     def __init__(self):
         self.canvas_width = get_canvas_width()
         self.canvas_height = get_canvas_height()
-        self.x, self.y = 1600 // 2, 90
+        #self.x, self.y = 1600 // 2, 90
         # Boy is only once created, so instance image loading is fine
         self.image = load_image('animation_sheet.png')
         self.font = load_font('ENCR10B.TTF', 16)
