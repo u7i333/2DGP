@@ -3,6 +3,7 @@ from pico2d import *
 from my_bullet import My_Bullet
 from my_bullet import Speciel_Bullet
 
+
 import random
 import game_world
 
@@ -163,6 +164,9 @@ class Heroine:
             self.cur_state = next_state_table[self.cur_state][event]
             self.cur_state.enter(self, event)
 
+
+
+
     def draw(self):
         self.cur_state.draw(self)
 
@@ -170,4 +174,7 @@ class Heroine:
         if (event.type, event.key) in key_event_table:
             key_event = key_event_table[(event.type, event.key)]
             self.add_event(key_event)
+
+    def get_bb(self):
+        return self.x - 50, self.y - 50,  self.x + 50, self.y + 50
 
