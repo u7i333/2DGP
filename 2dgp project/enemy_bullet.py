@@ -133,7 +133,7 @@ class Special_Enemy_Bullet:
 
 
     def get_bb(self):
-        return self.x - 15, self.y - 15,  self.x + 15, self.y + 15
+        return self.x - 5, self.y - 5,  self.x + 5, self.y + 5
 
     def update(self):
         self.x -= self.velocityx

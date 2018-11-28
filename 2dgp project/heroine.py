@@ -2,7 +2,7 @@ import game_framework
 from pico2d import *
 from my_bullet import My_Bullet
 from my_bullet import Speciel_Bullet
-
+import main_state
 
 import random
 import game_world
@@ -140,7 +140,8 @@ class Heroine:
         self.cur_state = IdleState
         self.cur_state.enter(self, None)
         self.special_count = 3
-        self.hp = 1000
+        self.hp = 1
+        self.life = 3
 
 
     def shoot_bullet(self):
@@ -163,8 +164,15 @@ class Heroine:
             self.cur_state.exit(self, event)
             self.cur_state = next_state_table[self.cur_state][event]
             self.cur_state.enter(self, event)
+
         if (self.hp < 0):
-            game_world.remove_object(self)
+            self.life -= 1
+            self.hp = 1
+            self.x = 300
+            self.y = 50
+
+            if(self.life < 0):
+                game_world.remove_object(self)
 
     def draw(self):
         self.cur_state.draw(self)

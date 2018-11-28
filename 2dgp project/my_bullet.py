@@ -118,12 +118,91 @@ class Speciel_Bullet:
         if Speciel_Bullet.image == None:
             Speciel_Bullet.image = load_image('special_bullet.png')
         self.x, self.y, self.velocity = x, y, velocity
-
+        self.time = 0
 
     def draw(self):
         self.image.draw(self.x, self.y)
 
+    def get_bb(self):
+        return self.x - 150, self.y - 150,  self.x + 150, self.y + 150
+
     def update(self):
-        self.y += self.velocity
-        if self.y > 800 - 25:
+        if(self.time == 0):
+            self.time = get_time()
+            main_state.heroine.hp = 1000
+        if(get_time() - self.time > 3):
             game_world.remove_object(self)
+            main_state.heroine.hp = 1
+
+        if main_state.collide(main_state.blue_enemy, self):
+            main_state.blue_enemy.hp -= 1
+            #game_world.remove_object(main_state.blue_enemy)
+
+        for i in range(0, 3):
+            if main_state.collide(main_state.blue_enemys1[i], self):
+                main_state.blue_enemys1[i].hp -= 1
+                #game_world.remove_object(main_state.blue_enemys1[i])
+
+        if main_state.collide(main_state.bose_enemy, self):
+            main_state.bose_enemy.hp -= 1
+            #game_world.remove_object(main_state.bose_enemy)
+
+        for i in range(0, 3):
+            if main_state.collide(main_state.black_enemys1[i], self):
+                main_state.black_enemys1[i].hp -= 1
+                #game_world.remove_object(main_state.black_enemys1[i])
+
+        if main_state.collide(main_state.red_enemy, self):
+            main_state.red_enemy.hp -= 1
+
+        if main_state.collide(main_state.green_enemy, self):
+            main_state.green_enemy.hp -= 1
+
+        if main_state.collide(main_state.special_enemy, self):
+            main_state.special_enemy.hp -= 1
+
+        for i in range(0, 3):
+            if main_state.collide(main_state.black_enemys2[i], self):
+                main_state.black_enemys2[i].hp -= 1
+
+        for i in range(0, 3):
+            if main_state.collide(main_state.blue_enemys2[i], self):
+                main_state.blue_enemys2[i].hp -= 1
+                #game_world.remove_object(main_state.blue_enemys1[i])
+
+        if main_state.collide(main_state.red_enemy2, self):
+            main_state.red_enemy2.hp -= 1
+
+        if main_state.collide(main_state.green_enemy2, self):
+            main_state.green_enemy2.hp -= 1
+
+        if main_state.collide(main_state.special_enemy1, self):
+            main_state.special_enemy1.hp -= 1
+
+        if main_state.collide(main_state.special_enemy2, self):
+            main_state.special_enemy2.hp -= 1
+
+        if main_state.collide(main_state.red_enemy3, self):
+            main_state.red_enemy3.hp -= 1
+
+        if main_state.collide(main_state.green_enemy3, self):
+            main_state.green_enemy3.hp -= 1
+
+        for i in range(0, 3):
+            if main_state.collide(main_state.black_enemys3[i], self):
+                main_state.black_enemys3[i].hp -= 1
+
+        for i in range(0, 3):
+            if main_state.collide(main_state.blue_enemys3[i], self):
+                main_state.blue_enemys3[i].hp -= 1
+
+
+        if main_state.collide(main_state.red_enemy4, self):
+            main_state.red_enemy4.hp -= 1
+
+        if main_state.collide(main_state.green_enemy4, self):
+            main_state.green_enemy4.hp -= 1
+
+
+        if main_state.collide(main_state.special_enemy3, self):
+            main_state.special_enemy3.hp -= 1

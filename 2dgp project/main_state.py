@@ -58,14 +58,14 @@ green_enemy4= None
 
 
 
-
 class Map:
     y = 0
     frame = 0.25
 
+
     def __init__(self):
         self.image = load_image('shooting_ground.bmp')
-
+        self.mapcount = 0
 
     def draw(self):
         self.image.draw(400, +4850 - 600 - self.y)
@@ -73,8 +73,11 @@ class Map:
     def update(self):
         self.y += self.frame
 
-        if(self.y > 8000):
+        if(self.y > 4000):
             self.y = 0
+            self.mapcount = 1
+
+
 
 def collide(a, b):
     # fill here
@@ -152,53 +155,54 @@ def update():
     for game_object in game_world.all_objects():
         game_object.update()
 
-    if(map.y == 2000):
-        game_world.add_object(bose_enemy, 1)
+    if(map.mapcount == 0):
+        if(map.y == 2000):
+            game_world.add_object(bose_enemy, 1)
 
-    if(map.y == 50):
-        for i in range(0, 3):
-            game_world.add_object(blue_enemys1[i], 1)
+        if(map.y == 50):
+            for i in range(0, 3):
+                game_world.add_object(blue_enemys1[i], 1)
 
-    if(map.y == 200):
-        for i in range(0, 3):
-            game_world.add_object(black_enemys1[i], 1)
+        if(map.y == 200):
+            for i in range(0, 3):
+                game_world.add_object(black_enemys1[i], 1)
 
-    if(map.y == 350):
-        game_world.add_object(red_enemy, 1)
+        if(map.y == 350):
+            game_world.add_object(red_enemy, 1)
 
-    if(map.y == 500):
-        game_world.add_object(green_enemy, 1)
+        if(map.y == 500):
+            game_world.add_object(green_enemy, 1)
 
-    if(map.y == 700):
-        game_world.add_object(special_enemy,1)
+        if(map.y == 700):
+            game_world.add_object(special_enemy,1)
 
-    if (map.y == 800):
-        for i in range(0, 3):
-            game_world.add_object(blue_enemys2[i], 1)
+        if (map.y == 800):
+            for i in range(0, 3):
+                game_world.add_object(blue_enemys2[i], 1)
 
-    if (map.y == 800):
-        for i in range(0, 3):
-            game_world.add_object(black_enemys2[i], 1)
+        if (map.y == 800):
+            for i in range(0, 3):
+                game_world.add_object(black_enemys2[i], 1)
 
-    if (map.y == 1000):
-        game_world.add_object(red_enemy2, 1)
-        game_world.add_object(green_enemy2, 1)
+        if (map.y == 1000):
+            game_world.add_object(red_enemy2, 1)
+            game_world.add_object(green_enemy2, 1)
 
-    if (map.y == 1200):
-        game_world.add_object(special_enemy1, 1)
-        game_world.add_object(special_enemy2, 1)
+        if (map.y == 1200):
+            game_world.add_object(special_enemy1, 1)
+            game_world.add_object(special_enemy2, 1)
 
-    if (map.y == 1500):
-        for i in range(0, 3):
-            game_world.add_object(black_enemys3[i], 1)
-            game_world.add_object(blue_enemys3[i], 1)
-            game_world.add_object(red_enemy3, 1)
-            game_world.add_object(green_enemy3, 1)
+        if (map.y == 1500):
+            for i in range(0, 3):
+                game_world.add_object(black_enemys3[i], 1)
+                game_world.add_object(blue_enemys3[i], 1)
+                game_world.add_object(red_enemy3, 1)
+                game_world.add_object(green_enemy3, 1)
 
-    if (map.y == 1750):
-        game_world.add_object(special_enemy3, 1)
-        game_world.add_object(red_enemy4, 1)
-        game_world.add_object(green_enemy4, 1)
+        if (map.y == 1750):
+            game_world.add_object(special_enemy3, 1)
+            game_world.add_object(red_enemy4, 1)
+            game_world.add_object(green_enemy4, 1)
 
 
 
