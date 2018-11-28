@@ -11,7 +11,7 @@ PIXEL_PER_METER = (10.0 /0.3)
 RUN_SPEED_KMPH = 20.0
 RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
 RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
-RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
+RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER) * 1.5
 
 TIME_PER_ACTION = 0.5
 ACTION_PER_TIME = 1.0 / TIME_PER_ACTION
@@ -106,7 +106,7 @@ class RunState:
     def do(heroine):
         heroine.frame = (heroine.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 8
         heroine.x += heroine.velocityX * game_framework.frame_time
-        heroine.x = clamp(25, heroine.x, 600 - 25)
+        heroine.x = clamp(10, heroine.x, 600 - 25)
         heroine.y += heroine.velocityY * game_framework.frame_time
         heroine.y = clamp(10, heroine.y, 800 - 25)
 
@@ -140,7 +140,7 @@ class Heroine:
         self.cur_state = IdleState
         self.cur_state.enter(self, None)
         self.special_count = 3
-
+        self.hp = 1000
 
 
     def shoot_bullet(self):
@@ -163,9 +163,8 @@ class Heroine:
             self.cur_state.exit(self, event)
             self.cur_state = next_state_table[self.cur_state][event]
             self.cur_state.enter(self, event)
-
-
-
+        if (self.hp < 0):
+            game_world.remove_object(self)
 
     def draw(self):
         self.cur_state.draw(self)
@@ -176,5 +175,5 @@ class Heroine:
             self.add_event(key_event)
 
     def get_bb(self):
-        return self.x - 50, self.y - 50,  self.x + 50, self.y + 50
+        return self.x - 30, self.y - 30,  self.x + 30, self.y + 30
 
