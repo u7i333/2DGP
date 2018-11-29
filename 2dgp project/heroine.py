@@ -142,11 +142,20 @@ class Heroine:
         self.special_count = 3
         self.hp = 1
         self.life = 3
-
+        self.power = 1
+        self.lifcount = 0
+        self.lifetime = 0
 
     def shoot_bullet(self):
-        bullet = My_Bullet(self.x, self.y, self.bulletdir*RUN_SPEED_PPS * 0.05)
-        game_world.add_object(bullet, 1)
+        if(self.power != 2):
+            bullet = My_Bullet(self.x, self.y, self.bulletdir*RUN_SPEED_PPS * 0.05)
+            game_world.add_object(bullet, 1)
+
+        if(self. power > 1):
+            bullet2 = My_Bullet(self.x - 30, self.y - 20, self.bulletdir*RUN_SPEED_PPS * 0.05)
+            bullet3 = My_Bullet(self.x + 30, self.y - 20, self.bulletdir * RUN_SPEED_PPS * 0.05)
+            game_world.add_object(bullet2, 1)
+            game_world.add_object(bullet3, 1)
 
     def shoot_special_bullet(self):
         if(self.special_count > 0):
@@ -170,6 +179,17 @@ class Heroine:
             self.hp = 1
             self.x = 300
             self.y = 50
+            self.lifcount = 1
+
+        if (self.lifcount == 1):
+            if(self.lifetime == 0):
+                self.lifetime = get_time()
+                self.hp = 1000
+
+            if(get_time() - self.lifetime > 3):
+                self.hp = 1
+                self.lifetime = 0
+                self.lifcount =0
 
             if(self.life < 0):
                 game_world.remove_object(self)
