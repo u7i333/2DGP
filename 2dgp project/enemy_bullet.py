@@ -192,17 +192,19 @@ class Bose_Laser_Bullet:
 
 
     def update(self):
-        self.x -= 0.000000000001
+
         if(self.frame < 20):
             if get_time() - self.bullettime > 0.1:
                 self.frame = (self.frame + 1)
                 self.bullettime = get_time()
 
         if(self.frame == 19):
-            if(self.time == 0):
-                self.time = get_time()
-            if(get_time()-self.time > 10):
+            #if(self.time == 0):
+                #self.time = get_time()
+                #self.fram = 19
+            #if(get_time()-self.time > 1):
                 game_world.remove_object(self)
+
 
         if self.frame > 15:
             if main_state.collide(main_state.heroine, self):

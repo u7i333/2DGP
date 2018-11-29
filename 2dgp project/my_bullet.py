@@ -119,14 +119,19 @@ class Speciel_Bullet:
             Speciel_Bullet.image = load_image('special_bullet.png')
         self.x, self.y, self.velocity = x, y, velocity
         self.time = 0
+        self.frame = 0
 
     def draw(self):
-        self.image.draw(self.x, self.y)
+        #self.image.draw(self.x, self.y)
+        self.image.clip_draw(400 * int(self.frame), 0, 400, 400, self.x, self.y)
 
     def get_bb(self):
-        return self.x - 150, self.y - 150,  self.x + 150, self.y + 150
+        return self.x - 170, self.y - 170,  self.x + 170, self.y + 170
 
     def update(self):
+        self.x = main_state.heroine.x
+        self.y = main_state.heroine.y
+        self.frame = (self.frame + 0.09)% 8
         if(self.time == 0):
             self.time = get_time()
             main_state.heroine.hp = 1000

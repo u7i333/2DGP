@@ -5,6 +5,7 @@ from enemy_bullet import Star_Bullet
 from enemy_bullet import Bose_Laser_Bullet
 from enemy_bullet import Special_Enemy_Bullet
 from enemy_bullet import Red_Enemy_Bullet
+from enemy_bullet import Blue_Enemy_Bullet
 import main_state
 
 PIXEL_PER_METER = (10.0 /0.3)
@@ -36,7 +37,7 @@ class Bose_enemy:
         self.count6count = 0
         self.lasercount = 0
         self.phase = 0
-        self.hp = 3000
+        self.hp = 5000
         self.sparkcount = 0
 
     def shoot_enemy_bullet(self):
@@ -61,11 +62,20 @@ class Bose_enemy:
         enemy_bullet3 = Special_Enemy_Bullet(self.x, self.y, 0, 1)
         enemy_bullet4 = Special_Enemy_Bullet(self.x, self.y, -0.5, 1)
         enemy_bullet5 = Special_Enemy_Bullet(self.x, self.y, -1, 1)
+        enemy_bullet6 = Blue_Enemy_Bullet(self.x - 200, self.y)
+        enemy_bullet7 = Blue_Enemy_Bullet(self.x - 100, self.y)
+        enemy_bullet8 = Blue_Enemy_Bullet(self.x + 100, self.y)
+        enemy_bullet9 = Blue_Enemy_Bullet(self.x + 200, self.y)
         game_world.add_object(enemy_bullet1, 1)
         game_world.add_object(enemy_bullet2, 1)
         game_world.add_object(enemy_bullet3, 1)
         game_world.add_object(enemy_bullet4, 1)
         game_world.add_object(enemy_bullet5, 1)
+        if(self.phase >= 1):
+            game_world.add_object(enemy_bullet6, 1)
+            game_world.add_object(enemy_bullet7, 1)
+            game_world.add_object(enemy_bullet8, 1)
+            game_world.add_object(enemy_bullet9, 1)
 
     def draw(self):
         if self.velocity == 0:
@@ -77,6 +87,9 @@ class Bose_enemy:
 
     def update(self):
         self.frame = (self.frame + 0.01) % 4
+
+        if(self.hp < 2000):
+            self.phase = 1
 
         if(self.hp < 0):
             game_world.remove_object(self)
@@ -161,7 +174,7 @@ class Bose_enemy:
                 self.count = 8
                 #self.velocity = 0
 
-        if (self.count == 8 and self.hp < 1000):
+        if (self.count == 8 and self.hp < 2500):
             if (self.sparkcount == 0):
                 Bose_enemy.shoot_laser_bullet(self)
                 self.sparkcount = 1
@@ -179,7 +192,6 @@ class Bose_enemy:
                 self.time = get_time()
             if (get_time() - self.time > 3):
                 self.count = 0
-                self.phase = 1
                 self.time = get_time()
 
         if self.x <= 25:

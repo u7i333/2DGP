@@ -7,6 +7,8 @@ from enemy_bullet import Red_Enemy_Bullet
 from enemy_bullet import Green_Enemy_Bullet
 from enemy_bullet import Special_Enemy_Bullet
 import main_state
+import item
+import random
 
 PIXEL_PER_METER = (10.0 /0.3)
 RUN_SPEED_KMPH = 20.0
@@ -18,6 +20,24 @@ RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)*0.5 #뒤에는 삭제할것
 TIME_PER_ACTION = 0.5
 ACTION_PER_TIME = 1.0 / TIME_PER_ACTION
 FRAMES_PER_ACTION = 8
+
+
+class Dead_anime:
+    image = None
+
+    def __init__(self, x = 400, y = 300, velocity =0.1):
+        if Dead_anime.image == None:
+            Dead_anime.image = load_image('dead_anime.png')
+        self.x, self.y, self.velocity = x, y, velocity
+        self.frame = 0
+
+    def draw(self):
+        self.image.clip_draw(int(self.frame) * 40, 0, 40, 40, self.x, self.y)
+
+    def update(self):
+        self.frame = (self.frame+0.1)%5
+        if(self.frame > 4):
+            game_world.remove_object(self)
 
 
 class Blue_enemy:
@@ -44,7 +64,10 @@ class Blue_enemy:
     def update(self):
         self.frame = (self.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 4
         if (self.hp < 0):
+            dead_anime = Dead_anime(self.x,self.y)
+            game_world.add_object(dead_anime,1)
             game_world.remove_object(self)
+
         if(get_time() - self.time > 1):
             Blue_enemy.shoot_enemy_bullet(self)
             self.time = get_time()
@@ -82,6 +105,8 @@ class Green_enemy:
             Green_enemy.shoot_enemy_bullet(self)
             self.time = get_time()
         if (self.hp < 0):
+            dead_anime = Dead_anime(self.x, self.y)
+            game_world.add_object(dead_anime, 1)
             game_world.remove_object(self)
 
         self.x = self.x - RUN_SPEED_PPS*0.005
@@ -113,6 +138,8 @@ class Black_enemy:
     def update(self):
         self.frame = (self.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 4
         if (self.hp < 0):
+            dead_anime = Dead_anime(self.x, self.y)
+            game_world.add_object(dead_anime, 1)
             game_world.remove_object(self)
         if(get_time() - self.time > 1):
             Black_enemy.shoot_enemy_bullet(self)
@@ -151,6 +178,8 @@ class Red_enemy:
             Red_enemy.shoot_enemy_bullet(self)
             self.time = get_time()
         if (self.hp < 0):
+            dead_anime = Dead_anime(self.x, self.y)
+            game_world.add_object(dead_anime, 1)
             game_world.remove_object(self)
         self.x = self.x + RUN_SPEED_PPS*0.005
 
@@ -166,6 +195,18 @@ class Special_enemy:
         self.bulletdir = 1
         self.time = get_time()
         self.hp = 5
+
+    def drop_item(self):
+        a = random.randint(0,2)
+        if(a == 0):
+            drop_items1 = item.Power_Item(self.x,self.y)
+            game_world.add_object(drop_items1, 1)
+        if(a == 1):
+            drop_items2 = item.lifeup_Item(self.x, self.y)
+            game_world.add_object(drop_items2, 1)
+        if(a == 2):
+            drop_items3 = item.Special_Item(self.x, self.y)
+            game_world.add_object(drop_items3, 1)
 
     def shoot_enemy_bullet(self):
         enemy_bullet1 = Special_Enemy_Bullet(self.x, self.y, 1,1)
@@ -188,6 +229,9 @@ class Special_enemy:
     def update(self):
         self.frame = (self.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 4
         if (self.hp < 0):
+            dead_anime = Dead_anime(self.x, self.y)
+            game_world.add_object(dead_anime, 1)
+            self.drop_item()
             game_world.remove_object(self)
         if(get_time() - self.time > 0.7):
             Special_enemy.shoot_enemy_bullet(self)

@@ -15,6 +15,7 @@ from norml_enemy import Red_enemy
 from norml_enemy import Green_enemy
 from bose_enemy import Bose_enemy
 from norml_enemy import Special_enemy
+import UI
 
 from enemy_bullet import Blue_Enemy_Bullet
 
@@ -74,7 +75,7 @@ class Map:
         self.y += self.frame
 
         if(self.y > 4000):
-            self.y = 0
+            self.frame = 0
             self.mapcount = 1
 
 
@@ -124,7 +125,11 @@ def enter():
     red_enemy4 = Red_enemy(0, 700)
     green_enemy4 = Green_enemy(600, 700)
 
+    life_ui = UI.Life_UI(20,20)
+    game_world.add_object(life_ui, 1)
 
+    special_ui = UI.Special_UI(580, 20)
+    game_world.add_object(special_ui, 1)
 
 def exit():
     global map

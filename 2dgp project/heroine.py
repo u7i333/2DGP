@@ -126,6 +126,24 @@ next_state_table = {
 
 }
 
+class Dead_anime:
+
+
+    def __init__(self, x = 400, y = 300, velocity =0.1):
+
+        Dead_anime.image = load_image('heroine_dead.png')
+        self.x, self.y, self.velocity = x, y, velocity
+        self.frame = 0
+
+    def draw(self):
+        self.image.clip_draw(int(self.frame) * 100, 0, 100, 100, self.x, self.y)
+
+    def update(self):
+        self.frame = (self.frame+0.2)%10
+        if(self.frame > 9):
+            game_world.remove_object(self)
+
+
 class Heroine:
 
     def __init__(self):
@@ -175,11 +193,15 @@ class Heroine:
             self.cur_state.enter(self, event)
 
         if (self.hp < 0):
+            dead_anime = Dead_anime(self.x, self.y)
+            game_world.add_object(dead_anime, 1)
             self.life -= 1
             self.hp = 1
             self.x = 300
             self.y = 50
             self.lifcount = 1
+            self.special_count = 3
+
 
         if (self.lifcount == 1):
             if(self.lifetime == 0):
