@@ -132,9 +132,10 @@ class Speciel_Bullet:
         self.x = main_state.heroine.x
         self.y = main_state.heroine.y
         self.frame = (self.frame + 0.09)% 8
+        main_state.heroine.hp = 1000
         if(self.time == 0):
             self.time = get_time()
-            main_state.heroine.hp = 1000
+
         if(get_time() - self.time > 3):
             game_world.remove_object(self)
             main_state.heroine.hp = 1

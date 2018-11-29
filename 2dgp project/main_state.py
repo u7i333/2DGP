@@ -113,15 +113,11 @@ def enter():
     green_enemy2 = Green_enemy(600, 700)
     special_enemy1 = Special_enemy(150, 850)
     special_enemy2 = Special_enemy(450, 850)
-
     red_enemy3 = Red_enemy(0, 700)
     green_enemy3 = Green_enemy(600, 700)
-
     blue_enemys3 = [Blue_enemy(i, j) for (i, j) in [(600, 600), (650, 600), (700, 600)]]
     black_enemys3 = [Black_enemy(i, j) for (i, j) in [(0, 700), (-50, 700), (-100, 700)]]
-
     special_enemy3 = Special_enemy(300, 850)
-
     red_enemy4 = Red_enemy(0, 700)
     green_enemy4 = Green_enemy(600, 700)
 
@@ -149,6 +145,8 @@ def handle_events():
             game_framework.quit()
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
 
+            #game_framework.change_state(title_state)
+            game_world.clear()
             game_framework.change_state(title_state)
         elif event.type == SDL_KEYDOWN and event.key == SDLK_p:
             game_framework.push_state(senior_pause_state)
@@ -183,11 +181,11 @@ def update():
             game_world.add_object(special_enemy,1)
 
         if (map.y == 800):
-            for i in range(0, 3):
+            for i in range(0, 2):
                 game_world.add_object(blue_enemys2[i], 1)
 
         if (map.y == 800):
-            for i in range(0, 3):
+            for i in range(0, 2):
                 game_world.add_object(black_enemys2[i], 1)
 
         if (map.y == 1000):
@@ -199,7 +197,7 @@ def update():
             game_world.add_object(special_enemy2, 1)
 
         if (map.y == 1500):
-            for i in range(0, 3):
+            for i in range(0, 2):
                 game_world.add_object(black_enemys3[i], 1)
                 game_world.add_object(blue_enemys3[i], 1)
                 game_world.add_object(red_enemy3, 1)

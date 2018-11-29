@@ -204,9 +204,10 @@ class Heroine:
 
 
         if (self.lifcount == 1):
+            self.hp = 1000
             if(self.lifetime == 0):
                 self.lifetime = get_time()
-                self.hp = 1000
+                #self.hp = 1000
 
             if(get_time() - self.lifetime > 3):
                 self.hp = 1

@@ -13,16 +13,16 @@ def remove_object(o):
         if o in objects[i]:
             objects[i].remove(o)
             del o
+            break
 
 
 def clear():
-    for o in all_objects():
-        del o
-    objects.clear()
+    for l in objects:
+        l.clear()
+
 
 
 def all_objects():
     for i in range(len(objects)):
         for o in objects[i]:
             yield o
-
