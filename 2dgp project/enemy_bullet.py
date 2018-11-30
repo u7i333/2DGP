@@ -20,7 +20,10 @@ class Blue_Enemy_Bullet:
 
     def __init__(self, x = 400, y = 300, velocity =0.1):
         if Blue_Enemy_Bullet.image == None:
-            Blue_Enemy_Bullet.image = load_image('blue_enemy_bullet.png')
+            Blue_Enemy_Bullet.image = load_image('./picture/blue_enemy_bullet.png')
+        self.shoot_sound = load_wav('./music/normalenemybullet.wav')
+        self.shoot_sound.set_volume(10)
+        self.shoot_sound.play()
         self.x, self.y, self.velocity = x, y, velocity
 
     def get_bb(self):
@@ -43,8 +46,11 @@ class Black_Enemy_Bullet:
 
     def __init__(self, x = 400, y = 300, velocity =0.1):
         if Black_Enemy_Bullet.image == None:
-            Black_Enemy_Bullet.image = load_image('black_enemy_bullet.png')
+            Black_Enemy_Bullet.image = load_image('./picture/black_enemy_bullet.png')
         self.x, self.y, self.velocity = x, y, velocity
+        self.shoot_sound = load_wav('./music/normalenemybullet.wav')
+        self.shoot_sound.set_volume(10)
+        self.shoot_sound.play()
 
     def get_bb(self):
         return self.x - 5, self.y - 5, self.x + 5, self.y + 5
@@ -67,11 +73,14 @@ class Red_Enemy_Bullet:
 
     def __init__(self, x = 400, y = 300, velocity =0.1):
         if Red_Enemy_Bullet.image == None:
-            Red_Enemy_Bullet.image = load_image('red_enemy_bullet.png')
+            Red_Enemy_Bullet.image = load_image('./picture/red_enemy_bullet.png')
         self.x, self.y, self.velocity = x, y, velocity
         self.hx, self.hy = main_state.heroine.x, main_state.heroine.y
         self.countx = (self.hx - self.x)/900 * RUN_SPEED_PPS*0.05
         self.county = (self.hy - self.y)/900 * RUN_SPEED_PPS*0.05
+        self.shoot_sound = load_wav('./music/normalenemybullet.wav')
+        self.shoot_sound.set_volume(30)
+        self.shoot_sound.play()
 
     def get_bb(self):
         return self.x - 5, self.y - 5, self.x + 5, self.y + 5
@@ -98,11 +107,14 @@ class Green_Enemy_Bullet:
 
     def __init__(self, x = 400, y = 300, velocity =0.1):
         if Green_Enemy_Bullet.image == None:
-            Green_Enemy_Bullet.image = load_image('green_enemy_bullet.png')
+            Green_Enemy_Bullet.image = load_image('./picture/green_enemy_bullet.png')
         self.x, self.y, self.velocity = x, y, velocity
         self.hx, self.hy = main_state.heroine.x, main_state.heroine.y
         self.countx = (self.hx - self.x) / 900 * RUN_SPEED_PPS*0.05
         self.county = (self.hy - self.y) / 900 * RUN_SPEED_PPS*0.05
+        self.shoot_sound = load_wav('./music/normalenemybullet.wav')
+        self.shoot_sound.set_volume(30)
+        self.shoot_sound.play()
 
     def get_bb(self):
         return self.x - 5, self.y - 5, self.x + 5, self.y + 5
@@ -125,8 +137,11 @@ class Special_Enemy_Bullet:
 
     def __init__(self, x = 400, y = 300, velocityx= 1, velocityy= 1  ):
         if Special_Enemy_Bullet.image == None:
-            Special_Enemy_Bullet.image = load_image('special_enemy_bullet.png')
+            Special_Enemy_Bullet.image = load_image('./picture/special_enemy_bullet.png')
         self.x, self.y, self.velocityx, self.velocityy = x, y, velocityx, velocityy
+        self.shoot_sound = load_wav('./music/specialenemybullet.wav')
+        self.shoot_sound.set_volume(6)
+        self.shoot_sound.play()
 
     def draw(self):
         self.image.draw(self.x, self.y)
@@ -152,14 +167,17 @@ class Star_Bullet:
 
     def __init__(self, x = 400, y = 300, velocity =1, frame = 0):
         if Star_Bullet.image == None:
-            Star_Bullet.image = load_image('star_bullet.png')
+            Star_Bullet.image = load_image('./picture/star_bullet.png')
         self.x, self.y, self.velocity, self.frame = x, y, velocity, frame
+        self.shoot_sound = load_wav('./music/starbullet.wav')
+        self.shoot_sound.set_volume(30)
+        self.shoot_sound.play()
 
     def draw(self):
         self.image.clip_draw(int(self.frame) * 50, 0, 50, 50, self.x, self.y)
 
     def get_bb(self):
-        return self.x - 15, self.y - 15,  self.x + 15, self.y + 15
+        return self.x - 10, self.y - 10,  self.x + 10, self.y + 10
 
     def update(self):
         self.y -= RUN_SPEED_PPS*0.05
@@ -175,13 +193,14 @@ class Bose_Laser_Bullet:
 
     def __init__(self, x = 400, y = 300, velocity =1):
         if Bose_Laser_Bullet.image == None:
-            Bose_Laser_Bullet.image = load_image('master_spark.png')
+            Bose_Laser_Bullet.image = load_image('./picture/master_spark.png')
         self.x, self.y, self.velocity = x, y, velocity
         self.frame = 0
         self.bullettime = get_time()
         self.time = 0
         self.count = 0
-
+        self.shoot_sound = load_wav('./music/laserbullet.wav')
+        self.shoot_sound.set_volume(30)
 
     def get_bb(self):
         return self.x - 150, self.y - 775,  self.x + 150, self.y - 175
@@ -193,16 +212,19 @@ class Bose_Laser_Bullet:
 
     def update(self):
 
-        if(self.frame < 20):
-            if get_time() - self.bullettime > 0.1:
+        if(self.frame < 19):
+            if get_time() - self.bullettime > 0.05:
                 self.frame = (self.frame + 1)
                 self.bullettime = get_time()
 
+        if (self.frame == 5 ):
+            self.shoot_sound.play()
+
         if(self.frame == 19):
-            #if(self.time == 0):
-                #self.time = get_time()
-                #self.fram = 19
-            #if(get_time()-self.time > 1):
+            if(self.time == 0):
+                self.time = get_time()
+                self.frame = 19
+            if(get_time()-self.time > 2):
                 game_world.remove_object(self)
 
 

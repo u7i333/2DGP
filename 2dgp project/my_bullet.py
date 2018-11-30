@@ -3,6 +3,7 @@ import game_world
 import game_framework
 
 import main_state
+import norml_enemy
 
 PIXEL_PER_METER = (10.0 /0.3)
 RUN_SPEED_KMPH = 20.0
@@ -20,7 +21,13 @@ class My_Bullet:
 
     def __init__(self, x = 400, y = 300, velocity = 1):
         if My_Bullet.image == None:
-            My_Bullet.image = load_image('bullet.png')
+            My_Bullet.image = load_image('./picture/bullet.png')
+        self.shoot_sound = load_wav('./music/heroineshoot.wav')
+        #self.enemy_hit = load_wav('./music/enemyhit.wav')
+        self.shoot_sound.set_volume(30)
+        #self.enemy_hit.set_volume(10)
+        self.shoot_sound.play()
+
         self.x, self.y, self.velocity = x, y, velocity
 
 
@@ -36,10 +43,6 @@ class My_Bullet:
 
         if self.y > 800 - 50:
             game_world.remove_object(self)
-
-        if main_state.collide(main_state.blue_enemy, self):
-            main_state.blue_enemy.hp -= 1
-            #game_world.remove_object(main_state.blue_enemy)
 
         for i in range(0, 3):
             if main_state.collide(main_state.blue_enemys1[i], self):
@@ -64,11 +67,11 @@ class My_Bullet:
         if main_state.collide(main_state.special_enemy, self):
             main_state.special_enemy.hp -= 1
 
-        for i in range(0, 3):
+        for i in range(0, 2):
             if main_state.collide(main_state.black_enemys2[i], self):
                 main_state.black_enemys2[i].hp -= 1
 
-        for i in range(0, 3):
+        for i in range(0, 2):
             if main_state.collide(main_state.blue_enemys2[i], self):
                 main_state.blue_enemys2[i].hp -= 1
                 #game_world.remove_object(main_state.blue_enemys1[i])
@@ -116,7 +119,10 @@ class Speciel_Bullet:
 
     def __init__(self, x = 400, y = 300, velocity = 1):
         if Speciel_Bullet.image == None:
-            Speciel_Bullet.image = load_image('special_bullet.png')
+            Speciel_Bullet.image = load_image('./picture/special_bullet.png')
+        self.shoot_sound = load_wav('./music/specialshoot.wav')
+        self.shoot_sound.set_volume(30)
+        self.shoot_sound.play()
         self.x, self.y, self.velocity = x, y, velocity
         self.time = 0
         self.frame = 0
@@ -126,7 +132,7 @@ class Speciel_Bullet:
         self.image.clip_draw(400 * int(self.frame), 0, 400, 400, self.x, self.y)
 
     def get_bb(self):
-        return self.x - 170, self.y - 170,  self.x + 170, self.y + 170
+        return self.x - 100, self.y - 100,  self.x + 100, self.y + 100
 
     def update(self):
         self.x = main_state.heroine.x

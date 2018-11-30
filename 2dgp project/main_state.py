@@ -8,6 +8,8 @@ import game_framework
 import title_state
 #import pause_state
 import senior_pause_state
+import gameover_state
+import clear_state
 from heroine import Heroine
 from norml_enemy import Blue_enemy
 from norml_enemy import Black_enemy
@@ -16,6 +18,7 @@ from norml_enemy import Green_enemy
 from bose_enemy import Bose_enemy
 from norml_enemy import Special_enemy
 import UI
+
 
 from enemy_bullet import Blue_Enemy_Bullet
 
@@ -65,14 +68,26 @@ class Map:
 
 
     def __init__(self):
-        self.image = load_image('shooting_ground.bmp')
+        self.image = load_image('./picture/shooting_ground.bmp')
         self.mapcount = 0
+        self.bgm = load_music('./music/main_bgm.mp3')
+        self.bosebgm = load_music('./music/bose_bgm.mp3')
+        self.boseappear = load_wav('./music/boseappear.wav')
+        self.boseappear.set_volume(40)
+        self.bgm.set_volume(30)
+        self.bosebgm.set_volume(30)
+        self.bgm.repeat_play()
 
     def draw(self):
         self.image.draw(400, +4850 - 600 - self.y)
 
     def update(self):
         self.y += self.frame
+
+        if(self.y == 1800):
+            self.bgm.stop()
+            self.boseappear.play(1)
+
 
         if(self.y > 4000):
             self.frame = 0
@@ -94,14 +109,15 @@ def collide(a, b):
 
 
 def enter():
-    global map, heroine, blue_enemy, blue_enemys1,black_enemys1, bose_enemy, red_enemy, green_enemy, special_enemy, blue_enemys2, black_enemys2, red_enemy2, green_enemy2, special_enemy1, special_enemy2, red_enemy3,green_enemy3, black_enemys3, blue_enemys3, blue_enemys4, black_enemys4, special_enemy3, red_enemy4, green_enemy4
+    global map, heroine, blue_enemy, blue_enemys1,black_enemys1, bose_enemy, red_enemy, green_enemy, special_enemy, blue_enemys2, black_enemys2, red_enemy2, green_enemy2, special_enemy1, special_enemy2, red_enemy3,green_enemy3, black_enemys3, blue_enemys3, blue_enemys4, black_enemys4, special_enemy3, red_enemy4, green_enemy4, state_timer
+    global timercount
     map = Map()
     heroine = Heroine()
     blue_enemy = Blue_enemy(600, 400)
     game_world.add_object(heroine, 1)
     #global summontime
     #summontime = get_time()
-    bose_enemy = Bose_enemy(300, 800)
+    bose_enemy = Bose_enemy(300, 860)
     blue_enemys1 = [Blue_enemy(i, j) for (i, j) in [(600, 700), (650, 700), (700, 700)]]
     black_enemys1 = [Black_enemy(i, j) for (i, j) in [(0, 700), (-50, 700), (-100, 700)]]
     red_enemy = Red_enemy(0,700)
@@ -120,12 +136,12 @@ def enter():
     special_enemy3 = Special_enemy(300, 850)
     red_enemy4 = Red_enemy(0, 700)
     green_enemy4 = Green_enemy(600, 700)
-
     life_ui = UI.Life_UI(20,20)
     game_world.add_object(life_ui, 1)
-
     special_ui = UI.Special_UI(580, 20)
     game_world.add_object(special_ui, 1)
+    state_timer = 0
+    timercount = 0
 
 def exit():
     global map
@@ -144,71 +160,95 @@ def handle_events():
         if event.type == SDL_QUIT:
             game_framework.quit()
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
-
             #game_framework.change_state(title_state)
             game_world.clear()
             game_framework.change_state(title_state)
+
         elif event.type == SDL_KEYDOWN and event.key == SDLK_p:
             game_framework.push_state(senior_pause_state)
         else:
             heroine.handle_event(event)
+    if (heroine.life < 0):
+        game_framework.change_state(gameover_state)
+    if bose_enemy.hp < 0:
+        game_framework.change_state(clear_state)
+
+
 
 def update():
     map.update()
-
     for game_object in game_world.all_objects():
         game_object.update()
 
-    if(map.mapcount == 0):
-        if(map.y == 2000):
-            game_world.add_object(bose_enemy, 1)
 
-        if(map.y == 50):
-            for i in range(0, 3):
-                game_world.add_object(blue_enemys1[i], 1)
+    if(map.y == 2000):
+        map.bosebgm.repeat_play()
+        game_world.add_object(bose_enemy, 1)
+        bose_enemy.hp = 4000
 
-        if(map.y == 200):
-            for i in range(0, 3):
-                game_world.add_object(black_enemys1[i], 1)
+    if(map.y == 100):
+        for i in range(0, 3):
+            game_world.add_object(blue_enemys1[i], 1)
+            blue_enemys1[i].hp = 1
 
-        if(map.y == 350):
-            game_world.add_object(red_enemy, 1)
+    if(map.y == 200):
+        for i in range(0, 3):
+            game_world.add_object(black_enemys1[i], 1)
+            black_enemys1[i].hp = 1
 
-        if(map.y == 500):
-            game_world.add_object(green_enemy, 1)
+    if(map.y == 350):
+        game_world.add_object(red_enemy, 1)
+        red_enemy.hp = 5
 
-        if(map.y == 700):
-            game_world.add_object(special_enemy,1)
+    if(map.y == 500):
+        game_world.add_object(green_enemy, 1)
+        green_enemy.hp = 5
 
-        if (map.y == 800):
-            for i in range(0, 2):
-                game_world.add_object(blue_enemys2[i], 1)
+    if(map.y == 700):
+        game_world.add_object(special_enemy,1)
+        special_enemy.hp = 10
 
-        if (map.y == 800):
-            for i in range(0, 2):
-                game_world.add_object(black_enemys2[i], 1)
+    if (map.y == 800):
+        for i in range(0, 2):
+            game_world.add_object(blue_enemys2[i], 1)
+            blue_enemys2[i].hp = 1
 
-        if (map.y == 1000):
+    if (map.y == 800):
+        for i in range(0, 2):
+            game_world.add_object(black_enemys2[i], 1)
+            black_enemys2[i].hp = 1
+
+    if (map.y == 1000):
             game_world.add_object(red_enemy2, 1)
             game_world.add_object(green_enemy2, 1)
-
-        if (map.y == 1200):
-            game_world.add_object(special_enemy1, 1)
-            game_world.add_object(special_enemy2, 1)
-
-        if (map.y == 1500):
-            for i in range(0, 2):
-                game_world.add_object(black_enemys3[i], 1)
-                game_world.add_object(blue_enemys3[i], 1)
-                game_world.add_object(red_enemy3, 1)
-                game_world.add_object(green_enemy3, 1)
-
-        if (map.y == 1750):
-            game_world.add_object(special_enemy3, 1)
-            game_world.add_object(red_enemy4, 1)
-            game_world.add_object(green_enemy4, 1)
+            red_enemy2.hp = 5
+            green_enemy2.hp = 5
 
 
+    if (map.y == 1200):
+        game_world.add_object(special_enemy1, 1)
+        game_world.add_object(special_enemy2, 1)
+        special_enemy1.hp = 10
+        special_enemy2.hp = 10
+
+    if (map.y == 1500):
+        for i in range(0, 2):
+            game_world.add_object(black_enemys3[i], 1)
+            game_world.add_object(blue_enemys3[i], 1)
+            game_world.add_object(red_enemy3, 1)
+            game_world.add_object(green_enemy3, 1)
+            black_enemys3[i].hp = 1
+            blue_enemys3[i].hp = 1
+            red_enemy3.hp = 5
+            green_enemy3.hp = 5
+
+    if (map.y == 1750):
+        game_world.add_object(special_enemy3, 1)
+        special_enemy3.hp = 10
+        game_world.add_object(red_enemy4, 1)
+        red_enemy4.hp = 5
+        game_world.add_object(green_enemy4, 1)
+        green_enemy4.hp = 5
 
 def draw():
     clear_canvas()

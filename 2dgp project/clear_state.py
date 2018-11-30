@@ -1,14 +1,16 @@
 import game_framework
+import game_world
 from pico2d import *
 import main_state
+import title_state
 
-name = "TitleState"
+name = "Clearstate"
 image = None
 
 
 def enter():
     global image
-    image = load_image('./picture/title.png')
+    image = load_image('./picture/clear.png')
 
 
 def exit():
@@ -25,7 +27,7 @@ def handle_events():
             if(event.type, event.key) == (SDL_KEYDOWN, SDLK_ESCAPE):
                 game_framework.quit()
             elif(event.type, event.key) == (SDL_KEYDOWN, SDLK_SPACE):
-                game_framework.change_state(main_state)
+                game_framework.change_state(title_state)
 
 
 def draw():
@@ -44,9 +46,3 @@ def pause():
 
 def resume():
     pass
-
-
-
-
-
-

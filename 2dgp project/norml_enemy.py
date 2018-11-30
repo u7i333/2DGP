@@ -27,7 +27,7 @@ class Dead_anime:
 
     def __init__(self, x = 400, y = 300, velocity =0.1):
         if Dead_anime.image == None:
-            Dead_anime.image = load_image('dead_anime.png')
+            Dead_anime.image = load_image('./picture/dead_anime.png')
         self.x, self.y, self.velocity = x, y, velocity
         self.frame = 0
 
@@ -43,12 +43,16 @@ class Dead_anime:
 class Blue_enemy:
 
     def __init__(self,x = 400 ,y = 300):
-        Blue_enemy.image = load_image('blue_enemy(L).png')
+        Blue_enemy.image = load_image('./picture/blue_enemy(L).png')
+        self.dead_sound = load_wav('./music/normalenemydead.wav')
+        self.dead_sound.set_volume(40)
         self.x , self.y = x, y
         self.frame = 0
         self.bulletdir = 1
         self.time = get_time()
-        self.hp = 1
+        self.hp = 1000
+
+
 
     def shoot_enemy_bullet(self):
         enemy_bullet = Blue_Enemy_Bullet(self.x, self.y,self.bulletdir * RUN_SPEED_PPS * 0.01)
@@ -64,6 +68,7 @@ class Blue_enemy:
     def update(self):
         self.frame = (self.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 4
         if (self.hp < 0):
+            self.dead_sound.play()
             dead_anime = Dead_anime(self.x,self.y)
             game_world.add_object(dead_anime,1)
             game_world.remove_object(self)
@@ -81,7 +86,9 @@ class Blue_enemy:
 class Green_enemy:
 
     def __init__(self,x = 400 ,y = 300):
-        Green_enemy.image = load_image('green_enemy(L).png')
+        Green_enemy.image = load_image('./picture/green_enemy(L).png')
+        self.dead_sound = load_wav('./music/normalenemydead.wav')
+        self.dead_sound.set_volume(40)
         self.x , self.y = x, y
         self.frame = 0
         self.bulletdir = 1
@@ -105,6 +112,7 @@ class Green_enemy:
             Green_enemy.shoot_enemy_bullet(self)
             self.time = get_time()
         if (self.hp < 0):
+            self.dead_sound.play()
             dead_anime = Dead_anime(self.x, self.y)
             game_world.add_object(dead_anime, 1)
             game_world.remove_object(self)
@@ -118,7 +126,9 @@ class Green_enemy:
 class Black_enemy:
 
     def __init__(self,x = 400 ,y = 300):
-        Black_enemy.image = load_image('black_enemy(R).png')
+        Black_enemy.image = load_image('./picture/black_enemy(R).png')
+        self.dead_sound = load_wav('./music/normalenemydead.wav')
+        self.dead_sound.set_volume(40)
         self.x , self.y = x, y
         self.frame = 0
         self.bulletdir = 1
@@ -138,6 +148,7 @@ class Black_enemy:
     def update(self):
         self.frame = (self.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 4
         if (self.hp < 0):
+            self.dead_sound.play()
             dead_anime = Dead_anime(self.x, self.y)
             game_world.add_object(dead_anime, 1)
             game_world.remove_object(self)
@@ -154,7 +165,9 @@ class Black_enemy:
 class Red_enemy:
 
     def __init__(self,x = 400 ,y = 300):
-        Red_enemy.image = load_image('red_enemy(R).png')
+        Red_enemy.image = load_image('./picture/red_enemy(R).png')
+        self.dead_sound = load_wav('./music/normalenemydead.wav')
+        self.dead_sound.set_volume(40)
         self.x , self.y = x, y
         self.frame = 0
         self.bulletdir = 1
@@ -178,6 +191,7 @@ class Red_enemy:
             Red_enemy.shoot_enemy_bullet(self)
             self.time = get_time()
         if (self.hp < 0):
+            self.dead_sound.play()
             dead_anime = Dead_anime(self.x, self.y)
             game_world.add_object(dead_anime, 1)
             game_world.remove_object(self)
@@ -189,7 +203,9 @@ class Red_enemy:
 class Special_enemy:
 
     def __init__(self,x = 400 ,y = 300):
-        Special_enemy.image = load_image('special_enemy.png')
+        Special_enemy.image = load_image('./picture/special_enemy.png')
+        self.dead_sound = load_wav('./music/normalenemydead.wav')
+        self.dead_sound.set_volume(40)
         self.x , self.y = x, y
         self.frame = 0
         self.bulletdir = 1
@@ -229,6 +245,7 @@ class Special_enemy:
     def update(self):
         self.frame = (self.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 4
         if (self.hp < 0):
+            self.dead_sound.play()
             dead_anime = Dead_anime(self.x, self.y)
             game_world.add_object(dead_anime, 1)
             self.drop_item()

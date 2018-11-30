@@ -3,7 +3,7 @@ from pico2d import *
 from my_bullet import My_Bullet
 from my_bullet import Speciel_Bullet
 import main_state
-
+import gameover_state
 import random
 import game_world
 
@@ -19,6 +19,7 @@ FRAMES_PER_ACTION = 8
 
 
 RIGHT_DOWN, LEFT_DOWN, RIGHT_UP, LEFT_UP, UP_DOWN, DOWN_DOWN, UP_UP, DOWN_UP,DOWN_X,DOWN_SPACE = range(10)
+
 
 key_event_table = {
     (SDL_KEYDOWN, SDLK_RIGHT): RIGHT_DOWN,
@@ -131,7 +132,7 @@ class Dead_anime:
 
     def __init__(self, x = 400, y = 300, velocity =0.1):
 
-        Dead_anime.image = load_image('heroine_dead.png')
+        Dead_anime.image = load_image('./picture/heroine_dead.png')
         self.x, self.y, self.velocity = x, y, velocity
         self.frame = 0
 
@@ -148,7 +149,9 @@ class Heroine:
 
     def __init__(self):
         self.x, self.y = 600 // 2, 50
-        self.image = load_image('reimu_sheet.png')
+        self.image = load_image('./picture/reimu_sheet.png')
+        self.dead_sound = load_wav('./music/heroinedead.wav')
+        self.dead_sound.set_volume(30)
         self.dir = 1
         self.bulletdir = 1
         self.velocityX = 0
@@ -193,6 +196,7 @@ class Heroine:
             self.cur_state.enter(self, event)
 
         if (self.hp < 0):
+            self.dead_sound.play()
             dead_anime = Dead_anime(self.x, self.y)
             game_world.add_object(dead_anime, 1)
             self.life -= 1

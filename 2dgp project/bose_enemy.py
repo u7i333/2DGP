@@ -18,11 +18,29 @@ TIME_PER_ACTION = 0.5
 ACTION_PER_TIME = 1.0 / TIME_PER_ACTION
 FRAMES_PER_ACTION = 8
 
+class Dead_anime:
+    image = None
+
+    def __init__(self, x = 400, y = 300, velocity =0.1):
+        if Dead_anime.image == None:
+            Dead_anime.image = load_image('./picture/dead_anime.png')
+        self.x, self.y, self.velocity = x, y, velocity
+        self.frame = 0
+
+    def draw(self):
+        self.image.clip_draw(int(self.frame) * 40, 0, 40, 40, self.x, self.y)
+
+    def update(self):
+        self.frame = (self.frame+0.1)%5
+        if(self.frame > 4):
+            game_world.remove_object(self)
 
 class Bose_enemy:
 
     def __init__(self,x = 400 ,y = 300):
-        Bose_enemy.image = load_image('bose_enemy.png')
+        Bose_enemy.image = load_image('./picture/bose_enemy.png')
+        self.deadsound = load_wav('./music/bosedead.wav')
+        self.deadsound.set_volume(30)
         self.x , self.y = x, y
         self.frame = 0
         self.bulletdir = 1
@@ -91,6 +109,9 @@ class Bose_enemy:
         if(self.hp < 2000):
             self.phase = 1
 
+        if(self.hp < 10):
+            self.deadsound.play()
+
         if(self.hp < 0):
             game_world.remove_object(self)
 
@@ -99,6 +120,7 @@ class Bose_enemy:
             self.y = self.y - self.velocity
             if (self.y < 750):
                 self.count = 1
+
 
         if(get_time() - self.time > 0.35 and self.count < 4):
             Bose_enemy.shoot_enemy_bullet(self)
@@ -137,7 +159,7 @@ class Bose_enemy:
                 self.sparkcount = 1
             if(self.lasertimer == 0):
                 self.lasertimer = get_time()
-            if(get_time() - self.lasertimer > 1):
+            if(get_time() - self.lasertimer > 3):
                 self.lasertimer = 0
                 self.count = 5
                 self.sparkcount = 0
@@ -180,7 +202,7 @@ class Bose_enemy:
                 self.sparkcount = 1
             if (self.lasertimer == 0):
                 self.lasertimer = get_time()
-            if (get_time() - self.lasertimer > 1):
+            if (get_time() - self.lasertimer > 3):
                 self.lasertimer = 0
                 self.count = 9
                 self.sparkcount = 0

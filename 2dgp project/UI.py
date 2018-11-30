@@ -10,7 +10,7 @@ class Life_UI:
 
     def __init__(self, x = 400, y = 300, velocity =0.1):
         if Life_UI.image == None:
-            Life_UI.image = load_image('life_ui.png')
+            Life_UI.image = load_image('./picture/life_ui.png')
         self.x, self.y, self.velocity = x, y, velocity
 
 
@@ -27,7 +27,7 @@ class Special_UI:
 
     def __init__(self, x = 400, y = 300, velocity =0.1):
         if Special_UI.image == None:
-            Special_UI.image = load_image('special_ui.png')
+            Special_UI.image = load_image('./picture/special_ui.png')
         self.x, self.y, self.velocity = x, y, velocity
 
 

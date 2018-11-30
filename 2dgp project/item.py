@@ -15,16 +15,22 @@ TIME_PER_ACTION = 0.5
 ACTION_PER_TIME = 1.0 / TIME_PER_ACTION
 FRAMES_PER_ACTION = 8
 
+
+
+
 class Power_Item:
     image = None
 
     def __init__(self, x = 400, y = 300, velocity =0.1):
         if Power_Item.image == None:
-            Power_Item.image = load_image('power_item.png')
+            Power_Item.image = load_image('./picture/power_item.png')
+
         self.x, self.y, self.velocity = x, y, velocity
 
     def get_bb(self):
         return self.x - 25, self.y - 25,  self.x + 25, self.y + 25
+
+
 
     def draw(self):
         self.image.draw(self.x, self.y)
@@ -33,10 +39,12 @@ class Power_Item:
         self.y -= RUN_SPEED_PPS*0.05
         if self.y < 25:
             game_world.remove_object(self)
+
         if main_state.collide(main_state.heroine, self):
+
             main_state.heroine.power += 1
             game_world.remove_object(self)
-            # game_world.remove_object(main_state.heroine)
+
 
 
 
@@ -46,7 +54,8 @@ class lifeup_Item:
 
     def __init__(self, x = 400, y = 300, velocity =0.1):
         if lifeup_Item.image == None:
-            lifeup_Item.image = load_image('lifeup_item.png')
+            lifeup_Item.image = load_image('./picture/lifeup_item.png')
+
         self.x, self.y, self.velocity = x, y, velocity
 
     def get_bb(self):
@@ -60,10 +69,9 @@ class lifeup_Item:
         if self.y < 25:
             game_world.remove_object(self)
         if main_state.collide(main_state.heroine, self):
+
             main_state.heroine.life += 1
             game_world.remove_object(self)
-            # game_world.remove_object(main_state.heroine)
-
 
 
 
@@ -72,8 +80,10 @@ class Special_Item:
 
     def __init__(self, x = 400, y = 300, velocity =0.1):
         if Special_Item.image == None:
-            Special_Item.image = load_image('special_item.png')
+            Special_Item.image = load_image('./picture/special_item.png')
+
         self.x, self.y, self.velocity = x, y, velocity
+
 
     def get_bb(self):
         return self.x - 25, self.y - 25,  self.x + 25, self.y + 25
@@ -88,4 +98,3 @@ class Special_Item:
         if main_state.collide(main_state.heroine, self):
             main_state.heroine.special_count += 1
             game_world.remove_object(self)
-            # game_world.remove_object(main_state.heroine)
